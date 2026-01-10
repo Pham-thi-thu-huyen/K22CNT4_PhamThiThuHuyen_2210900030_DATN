@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập quản trị";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>Admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body class="bg-light">
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-4">
+
+                <div class="card shadow">
+                    <div class="card-header text-center bg-dark text-white">
+                        <h4>ADMIN LOGIN</h4>
+                    </div>
+
+                    <div class="card-body">
+
+                        @if (ViewBag.Error != null)
+                        {
+                            <div class="alert alert-danger">
+                                @ViewBag.Error
+                            </div>
+                        }
+
+                        <form asp-area="Admin"
+                              asp-controller="Account"
+                              asp-action="Login"
+                              method="post">
+
+                            @Html.AntiForgeryToken()
+
+                            <div class="mb-3">
+                                <label class="form-label">Tài khoản</label>
+                                <input name="username" class="form-control" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Mật khẩu</label>
+                                <input type="password" name="password" class="form-control" required />
+                            </div>
+
+                            <button type="submit" class="btn btn-dark w-100">
+                                Đăng nhập
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

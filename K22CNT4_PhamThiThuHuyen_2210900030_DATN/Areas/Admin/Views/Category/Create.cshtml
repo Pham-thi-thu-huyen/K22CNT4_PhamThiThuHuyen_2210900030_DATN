@@ -1,0 +1,85 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Category
+
+@{
+    ViewBag.Title = "Thêm mới danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Thêm mới danh mục</h1>
+
+<form asp-area="Admin"
+      asp-controller="Category"
+      asp-action="Create"
+      method="post">
+
+    @Html.AntiForgeryToken()
+
+    <!-- Tên -->
+    <div class="form-group">
+        <label>Tên danh mục</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <!-- Icon -->
+    <div class="form-group">
+        <label>Icon (FontAwesome / link)</label>
+        <input asp-for="Icon" class="form-control" placeholder="fa fa-home" />
+    </div>
+
+    <!-- Danh mục cha -->
+    <div class="form-group">
+        <label>Danh mục cha</label>
+        <select asp-for="Parentid" class="form-control">
+            <option value="">-- Không có --</option>
+            @foreach (var item in ViewBag.ParentCategories)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+
+    <!-- SEO -->
+    <div class="form-group">
+        <label>Slug (SEO)</label>
+        <input asp-for="Slug" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Meta Title</label>
+        <input asp-for="MetaTitle" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Meta Keyword</label>
+        <textarea asp-for="MetaKeyword" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Meta Description</label>
+        <textarea asp-for="MetaDesc" class="form-control"></textarea>
+    </div>
+
+    <!-- Trạng thái -->
+    <div class="form-group">
+        <label>Hiển thị</label>
+        <select asp-for="Isactive" class="form-control">
+            <option value="1">Hiển thị</option>
+            <option value="0">Ẩn</option>
+        </select>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group mt-3">
+        <a asp-area="Admin"
+           asp-controller="Category"
+           asp-action="Index"
+           class="btn btn-secondary">
+            ⬅ Quay lại
+        </a>
+
+        <button type="submit" class="btn btn-primary">
+            💾 Lưu
+        </button>
+    </div>
+</form>

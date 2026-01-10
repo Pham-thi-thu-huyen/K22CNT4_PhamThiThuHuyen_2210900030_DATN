@@ -1,0 +1,115 @@
+﻿@model IEnumerable<K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Product>
+
+@{
+    ViewBag.Title = "Sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Quản lý sản phẩm</h1>
+
+<a asp-area="Admin"
+   asp-controller="Product"
+   asp-action="Create"
+   class="btn btn-primary mb-3">
+    ➕ Thêm sản phẩm
+</a>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Hình ảnh</th>
+            <th>Tên SP</th>
+            <th>Danh mục</th>
+            <th>Giá</th>
+            <th>Sale</th>
+            <th>Top</th>
+            <th>Home</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+
+                <td>
+                    @{
+                        var img = item.ProductImages != null
+                        ? item.ProductImages.FirstOrDefault(x => x.Isdefault == 1)
+                        ?? item.ProductImages.FirstOrDefault()
+                        : null;
+                    }
+
+                    @if (img != null)
+                    {
+                        <img src="@img.Urlimg"
+                             style="width:60px;height:60px;object-fit:cover" />
+                    }
+                </td>
+
+                <td>@item.Name</td>
+                <td>@item.Category?.Name</td>
+                <td>@item.Price?.ToString("N0") đ</td>
+
+                <td>@(item.Issale == 1 ? "✔" : "")</td>
+                <td>@(item.Istopsale == 1 ? "✔" : "")</td>
+                <td>@(item.Ishome == 1 ? "✔" : "")</td>
+
+                <td>
+                    <span class="badge @(item.Isactive == 1 ? "bg-success" : "bg-secondary")">
+                        @(item.Isactive == 1 ? "Hiển thị" : "Ẩn")
+                    </span>
+                </td>
+
+                <td>
+                    <a asp-area="Admin"
+                       asp-controller="Product"
+                       asp-action="Edit"
+                       asp-route-id="@item.Id"
+                       class="btn btn-warning btn-sm">
+                        Sửa
+                    </a>
+
+                    <!-- 🔴 XOÁ BẰNG AJAX – KHÔNG SUBMIT -->
+                    <a href="javascript:void(0)"
+                       class="btn btn-danger btn-sm btn-delete"
+                       data-id="@item.Id">
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        // ===== XOÁ SẢN PHẨM (AJAX – KHÔNG NHẢY TRANG) =====
+        $(document).on('click', '.btn-delete', function (e) {
+            e.preventDefault(); // 🔥 CHẶN NHẢY TRANG
+
+            if (!confirm('Xóa sản phẩm này?')) return;
+
+            const id = $(this).data('id');
+
+            $.ajax({
+                url: '/Admin/Product/Delete',
+                type: 'POST',
+                data: { id: id },
+                success: function (res) {
+                    if (res.success) {
+                        location.reload(); // reload lại danh sách
+                    } else {
+                        alert('Xóa thất bại');
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi xóa');
+                }
+            });
+        });
+    </script>
+}

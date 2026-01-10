@@ -1,0 +1,163 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Product
+
+@{
+    ViewBag.Title = "Thêm sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Thêm mới sản phẩm</h1>
+
+<form asp-area="Admin"
+      asp-controller="Product"
+      asp-action="Create"
+      method="post"
+      enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="card">
+        <div class="card-header p-2">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#tab-info">Thông tin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#tab-image">Hình ảnh</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#tab-seo">SEO</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body">
+            <div class="tab-content">
+
+                <!-- ================= TAB THÔNG TIN ================= -->
+                <div class="tab-pane fade show active" id="tab-info">
+                    <div class="form-group">
+                        <label>Tên sản phẩm</label>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Slug</label>
+                        <input asp-for="Slug" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Danh mục</label>
+                        <select asp-for="Categoryid" class="form-control">
+                            <option value="">-- Chọn danh mục --</option>
+                            @foreach (var c in ViewBag.Categories)
+                            {
+                                <option value="@c.Id">@c.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mô tả ngắn</label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Chi tiết sản phẩm</label>
+                        <textarea asp-for="Contents" class="form-control" id="txtDetail"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Giá</label>
+                            <input asp-for="Price" class="form-control" />
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input type="checkbox" name="Isactive" value="1"
+                                       class="form-check-input" checked />
+                                <label class="form-check-label">Hiển thị</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input type="checkbox" name="Issale" value="1"
+                                       class="form-check-input" />
+                                <label class="form-check-label">Khuyến mãi</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input type="checkbox" name="Istopsale" value="1"
+                                       class="form-check-input" />
+                                <label class="form-check-label">Bán chạy</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input type="checkbox" name="Ishome" value="1"
+                                       class="form-check-input" />
+                                <label class="form-check-label">Trang chủ</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ================= TAB HÌNH ẢNH ================= -->
+                <div class="tab-pane fade" id="tab-image">
+                    <div class="form-group">
+                        <label>Ảnh sản phẩm</label>
+                        <input type="file" name="images" multiple class="form-control" />
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <label>Ảnh mặc định (theo thứ tự)</label>
+                        <input type="number" name="defaultImage" value="0" class="form-control"
+                               placeholder="Nhập index ảnh (0,1,2...)" />
+                    </div>
+                </div>
+
+                <!-- ================= TAB SEO ================= -->
+                <div class="tab-pane fade" id="tab-seo">
+                    <div class="form-group">
+                        <label>Meta Title</label>
+                        <input asp-for="MetaTitle" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Meta Keyword</label>
+                        <input asp-for="MetaKeyword" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Meta Description</label>
+                        <input asp-for="MetaDesc" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-success">💾 Thêm mới</button>
+            <a asp-action="Index" class="btn btn-secondary">⬅ Quay lại</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        if (window.CKEDITOR) {
+            CKEDITOR.replace('txtDetail');
+        }
+    </script>
+}

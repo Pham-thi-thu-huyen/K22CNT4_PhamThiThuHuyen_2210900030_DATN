@@ -1,0 +1,135 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Product
+
+@{
+    ViewBag.Title = "Sửa sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Sửa sản phẩm</h1>
+
+<!-- ===== NAV TAB (NGOÀI FORM) ===== -->
+<ul class="nav nav-pills mb-3">
+    <li class="nav-item">
+        <a class="nav-link active">Thông tin</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-area="Admin"
+           asp-controller="ProductImage"
+           asp-action="Index"
+           asp-route-id="@Model.Id">
+            Hình ảnh
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link">SEO</a>
+    </li>
+</ul>
+
+<!-- DEBUG ID -->
+@* <p style="color:red">ProductId = @Model.Id</p> *@
+
+<form asp-area="Admin"
+      asp-controller="Product"
+      asp-action="Edit"
+      method="post"
+      enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="card">
+        <div class="card-body">
+
+            <!-- ================= THÔNG TIN ================= -->
+            <div class="form-group">
+                <label>Tên sản phẩm</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Slug</label>
+                <input asp-for="Slug" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Danh mục</label>
+                <select asp-for="Categoryid" class="form-control">
+                    <option value="">-- Chọn danh mục --</option>
+                    @foreach (var c in ViewBag.Categories)
+                    {
+                        <option value="@c.Id" selected="@(c.Id == Model.Categoryid)">
+                            @c.Name
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Mô tả ngắn</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Chi tiết sản phẩm</label>
+                <textarea asp-for="Contents" class="form-control" id="txtDetail"></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Giá</label>
+                    <input asp-for="Price" class="form-control" />
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input asp-for="Isactive" class="form-check-input" />
+                        <label class="form-check-label">Hiển thị</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input asp-for="Issale" class="form-check-input" />
+                        <label class="form-check-label">Khuyến mãi</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input asp-for="Istopsale" class="form-check-input" />
+                        <label class="form-check-label">Bán chạy</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input asp-for="Ishome" class="form-check-input" />
+                        <label class="form-check-label">Trang chủ</label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-primary">💾 Lưu thay đổi</button>
+            <a asp-action="Index" class="btn btn-secondary">⬅ Quay lại</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        if (window.CKEDITOR) {
+            CKEDITOR.replace('txtDetail');
+        }
+    </script>
+}

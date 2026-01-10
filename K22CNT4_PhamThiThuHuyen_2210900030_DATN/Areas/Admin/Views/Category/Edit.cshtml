@@ -1,0 +1,64 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Category
+
+@{
+    ViewBag.Title = "Cập nhật danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Cập nhật danh mục</h1>
+
+<form asp-area="Admin"
+      asp-controller="Category"
+      asp-action="Edit"
+      method="post">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label>Tên danh mục</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Slug</label>
+        <input asp-for="Slug" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Meta Title</label>
+        <input asp-for="MetaTitle" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Meta Description</label>
+        <textarea asp-for="MetaDesc" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Meta Keyword</label>
+        <textarea asp-for="MetaKeyword" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Trạng thái</label>
+        <select asp-for="Isactive" class="form-control">
+            <option value="1">Hiển thị</option>
+            <option value="0">Ẩn</option>
+        </select>
+    </div>
+
+    <div class="form-group mt-3">
+        <a asp-area="Admin"
+           asp-controller="Category"
+           asp-action="Index"
+           class="btn btn-secondary">
+            ⬅ Quay lại
+        </a>
+
+        <button type="submit" class="btn btn-primary">
+            💾 Lưu
+        </button>
+    </div>
+</form>

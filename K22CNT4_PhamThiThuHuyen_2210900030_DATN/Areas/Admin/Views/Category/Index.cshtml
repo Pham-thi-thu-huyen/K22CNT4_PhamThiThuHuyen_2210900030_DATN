@@ -1,0 +1,71 @@
+﻿@model IEnumerable<K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Category>
+
+@{
+    ViewBag.Title = "Danh mục sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Quản lý danh mục sản phẩm</h1>
+
+<a asp-area="Admin"
+   asp-controller="Category"
+   asp-action="Create"
+   class="btn btn-primary mb-3">
+    + Thêm danh mục
+</a>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên danh mục</th>
+            <th>Slug</th>
+            <th>Trạng thái</th>
+            <th width="150">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Slug</td>
+                    <td>
+                        <span class="badge @(item.Isactive == 1 ? "bg-success" : "bg-secondary")">
+                            @(item.Isactive == 1 ? "Hiển thị" : "Ẩn")
+                        </span>
+                    </td>
+                    <td>
+                        <a asp-area="Admin"
+                           asp-controller="Category"
+                           asp-action="Edit"
+                           asp-route-id="@item.Id"
+                           class="btn btn-warning btn-sm">
+                            Sửa
+                        </a>
+
+                        <a asp-area="Admin"
+                           asp-controller="Category"
+                           asp-action="Delete"
+                           asp-route-id="@item.Id"
+                           onclick="return confirm('Bạn có chắc muốn xóa?')"
+                           class="btn btn-danger btn-sm">
+                            Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">
+                    Không có danh mục nào
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

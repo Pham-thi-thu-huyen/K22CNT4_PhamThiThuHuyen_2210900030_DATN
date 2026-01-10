@@ -1,0 +1,140 @@
+﻿@model List<K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.ProductImage>
+
+@{
+    ViewBag.Title = "Ảnh sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Quản lý ảnh sản phẩm</h2>
+
+<input type="hidden" id="productId" value="@ViewBag.ProductId" />
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input type="text" id="txtImage" class="form-control" placeholder="Nhập URL ảnh" />
+    </div>
+    <div class="col-md-2 d-flex align-items-center">
+        <label class="mb-0">
+            <input type="checkbox" id="ckDefault" /> Ảnh mặc định
+        </label>
+    </div>
+    <div class="col-md-2">
+        <!-- 🔴 QUAN TRỌNG: type="button" để KHÔNG submit -->
+        <button type="button" id="btnAdd" class="btn btn-success w-100">
+            Thêm ảnh
+        </button>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ảnh</th>
+            <th>Mặc định</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.Urlimg" width="120" />
+                    </td>
+                    <td>
+                        @if (item.Isdefault == 1)
+                        {
+                            <span class="badge bg-success">Default</span>
+                        }
+                    </td>
+                    <td>
+                        <!-- 🔴 ĐỔI BUTTON → A để không submit -->
+                        <a href="javascript:void(0)"
+                           class="btn btn-danger btn-delete"
+                           data-id="@item.ProductImagesid">
+                            Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center text-muted">
+                    Chưa có ảnh cho sản phẩm này
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script>
+        // ===== THÊM ẢNH =====
+        $('#btnAdd').on('click', function (e) {
+            e.preventDefault(); // 🔥 CHẶN SUBMIT
+
+            const productId = $('#productId').val();
+            const imageUrl = $('#txtImage').val().trim();
+            const isDefault = $('#ckDefault').is(':checked');
+
+            if (!productId || productId <= 0) {
+                alert('Không xác định được sản phẩm');
+                return;
+            }
+
+            if (imageUrl === '') {
+                alert('Vui lòng nhập URL ảnh');
+                return;
+            }
+
+            $.ajax({
+                url: '/Admin/ProductImage/Add',
+                type: 'POST',
+                data: {
+                    productId: productId,
+                    imageUrl: imageUrl,
+                    isDefault: isDefault
+                },
+                success: function (res) {
+                    if (res.success) {
+                        location.reload();
+                    } else {
+                        alert('Thêm ảnh thất bại');
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi thêm ảnh');
+                }
+            });
+        });
+
+        // ===== XOÁ ẢNH (CHẶN NHẢY TRANG TUYỆT ĐỐI) =====
+        $(document).on('click', '.btn-delete', function (e) {
+            e.preventDefault(); // 🔥 DÒNG QUYẾT ĐỊNH
+
+            if (!confirm('Bạn có chắc muốn xóa ảnh này?')) return;
+
+            const id = $(this).data('id');
+
+            $.ajax({
+                url: '/Admin/ProductImage/Delete',
+                type: 'POST',
+                data: { id: id },
+                success: function (res) {
+                    if (res.success) {
+                        location.reload();
+                    } else {
+                        alert('Xóa ảnh thất bại');
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi xóa ảnh');
+                }
+            });
+        });
+    </script>
+}

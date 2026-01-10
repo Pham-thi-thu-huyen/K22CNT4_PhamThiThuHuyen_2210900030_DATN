@@ -1,0 +1,39 @@
+﻿<div class="sidebar">
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview">
+
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="nav-link">
+                    <i class="nav-icon fas fa-home"></i>
+                    <p>Trang quản trị</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>Danh mục</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="nav-link">
+                    <i class="nav-icon fas fa-box"></i>
+                    <p>Sản phẩm</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-area="Admin"
+                   asp-controller="Account"
+                   asp-action="Logout"
+                   class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>Đăng xuất</p>
+                </a>
+            </li>
+
+
+        </ul>
+    </nav>
+</div>
