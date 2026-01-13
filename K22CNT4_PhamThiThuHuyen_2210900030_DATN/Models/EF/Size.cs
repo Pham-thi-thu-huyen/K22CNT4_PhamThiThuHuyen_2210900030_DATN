@@ -10,7 +10,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class Size
 {
     [Key]
-    [Column("SIZEID")]
+    [Column("ID")]
     public long Sizeid { get; set; }
 
     [Column("NAME")]

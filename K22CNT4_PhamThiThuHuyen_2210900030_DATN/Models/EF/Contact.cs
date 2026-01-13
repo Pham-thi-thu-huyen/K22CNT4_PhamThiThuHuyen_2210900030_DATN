@@ -10,7 +10,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class Contact
 {
     [Key]
-    [Column("CONTACTID")]
+    [Column("ID")]
     public long Contactid { get; set; }
 
     [Column("FULLNAME")]

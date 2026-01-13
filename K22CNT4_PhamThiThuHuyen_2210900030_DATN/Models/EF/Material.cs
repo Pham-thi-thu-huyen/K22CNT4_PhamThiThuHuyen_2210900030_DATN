@@ -10,7 +10,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class Material
 {
     [Key]
-    [Column("MATERIALID")]
+    [Column("ID")]
     public long Materialid { get; set; }
 
     [Column("NAME")]

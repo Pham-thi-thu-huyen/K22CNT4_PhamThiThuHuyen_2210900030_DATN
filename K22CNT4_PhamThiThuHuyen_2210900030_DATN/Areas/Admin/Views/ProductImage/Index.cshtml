@@ -9,9 +9,10 @@
 
 <input type="hidden" id="productId" value="@ViewBag.ProductId" />
 
+<!-- ===== FORM UPLOAD ===== -->
 <div class="row mb-3">
     <div class="col-md-6">
-        <input type="text" id="txtImage" class="form-control" placeholder="Nhập URL ảnh" />
+        <input type="file" id="fileImage" class="form-control" />
     </div>
     <div class="col-md-2 d-flex align-items-center">
         <label class="mb-0">
@@ -19,52 +20,46 @@
         </label>
     </div>
     <div class="col-md-2">
-        <!-- 🔴 QUAN TRỌNG: type="button" để KHÔNG submit -->
         <button type="button" id="btnAdd" class="btn btn-success w-100">
             Thêm ảnh
         </button>
     </div>
 </div>
 
+<!-- ===== TABLE ===== -->
 <table class="table table-bordered">
     <thead>
         <tr>
             <th>Ảnh</th>
             <th>Mặc định</th>
-            <th>Thao tác</th>
+            <th width="200">Thao tác</th>
         </tr>
     </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
+    <tbody id="imageTable">
+        @foreach (var item in Model)
         {
-            foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <img src="@item.Urlimg" width="120" />
-                    </td>
-                    <td>
-                        @if (item.Isdefault == 1)
-                        {
-                            <span class="badge bg-success">Default</span>
-                        }
-                    </td>
-                    <td>
-                        <!-- 🔴 ĐỔI BUTTON → A để không submit -->
-                        <a href="javascript:void(0)"
-                           class="btn btn-danger btn-delete"
-                           data-id="@item.ProductImagesid">
-                            Xóa
-                        </a>
-                    </td>
-                </tr>
-            }
-        }
-        else
-        {
-            <tr>
-                <td colspan="3" class="text-center text-muted">
-                    Chưa có ảnh cho sản phẩm này
+            <tr data-id="@item.ProductImagesid"
+                class="@(item.Isdefault == 1 ? "table-success" : "")">
+                <td>
+                    <img src="@item.Urlimg" width="120" />
+                </td>
+                <td class="td-default">
+                    @if (item.Isdefault == 1)
+                    {
+                        <span class="badge bg-success">Default</span>
+                    }
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-primary btn-set-default"
+                            @(item.Isdefault == 1 ? "disabled" : "")
+                            data-id="@item.ProductImagesid">
+                        Đặt mặc định
+                    </button>
+
+                    <button class="btn btn-sm btn-danger btn-delete"
+                            data-id="@item.ProductImagesid">
+                        Xóa
+                    </button>
                 </td>
             </tr>
         }
@@ -73,67 +68,80 @@
 
 @section scripts {
     <script>
-        // ===== THÊM ẢNH =====
-        $('#btnAdd').on('click', function (e) {
-            e.preventDefault(); // 🔥 CHẶN SUBMIT
-
+               // ================== ADD IMAGE ==================
+        $('#btnAdd').click(function () {
             const productId = $('#productId').val();
-            const imageUrl = $('#txtImage').val().trim();
+            const file = $('#fileImage')[0].files[0];
             const isDefault = $('#ckDefault').is(':checked');
 
-            if (!productId || productId <= 0) {
-                alert('Không xác định được sản phẩm');
+            if (!file) {
+                alert('Vui lòng chọn ảnh');
                 return;
             }
 
-            if (imageUrl === '') {
-                alert('Vui lòng nhập URL ảnh');
-                return;
-            }
+            const formData = new FormData();
+            formData.append('productId', productId);
+            formData.append('image', file);
+            formData.append('isDefault', isDefault);
 
             $.ajax({
                 url: '/Admin/ProductImage/Add',
                 type: 'POST',
-                data: {
-                    productId: productId,
-                    imageUrl: imageUrl,
-                    isDefault: isDefault
-                },
+                data: formData,
+                processData: false,
+                contentType: false,
                 success: function (res) {
-                    if (res.success) {
-                        location.reload();
-                    } else {
+                    if (!res.success) {
                         alert('Thêm ảnh thất bại');
+                        return;
                     }
-                },
-                error: function () {
-                    alert('Có lỗi xảy ra khi thêm ảnh');
+
+                    // 🔥 QUAY VỀ TRANG QUẢN LÝ SẢN PHẨM
+                    window.location.href = '/Admin/Product';
                 }
             });
         });
 
-        // ===== XOÁ ẢNH (CHẶN NHẢY TRANG TUYỆT ĐỐI) =====
-        $(document).on('click', '.btn-delete', function (e) {
-            e.preventDefault(); // 🔥 DÒNG QUYẾT ĐỊNH
 
-            if (!confirm('Bạn có chắc muốn xóa ảnh này?')) return;
+        // ================== DELETE IMAGE ==================
+        $(document).on('click', '.btn-delete', function () {
+            if (!confirm('Xóa ảnh này?')) return;
 
-            const id = $(this).data('id');
+            const btn = $(this);
+            const id = btn.data('id');
 
-            $.ajax({
-                url: '/Admin/ProductImage/Delete',
-                type: 'POST',
-                data: { id: id },
-                success: function (res) {
-                    if (res.success) {
-                        location.reload();
-                    } else {
-                        alert('Xóa ảnh thất bại');
-                    }
-                },
-                error: function () {
-                    alert('Có lỗi xảy ra khi xóa ảnh');
+            $.post('/Admin/ProductImage/Delete', { id: id }, function (res) {
+                if (res.success) {
+                    btn.closest('tr').fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                } else {
+                    alert('Xóa thất bại');
                 }
+            });
+        });
+
+        // ================== SET DEFAULT ==================
+        $(document).on('click', '.btn-set-default', function () {
+            const btn = $(this);
+            const id = btn.data('id');
+
+            $.post('/Admin/ProductImage/SetDefault', { id: id }, function (res) {
+                if (!res.success) {
+                    alert('Không thể đặt mặc định');
+                    return;
+                }
+
+                // Reset toàn bộ UI
+                $('#imageTable tr').removeClass('table-success');
+                $('#imageTable .td-default').html('');
+                $('#imageTable .btn-set-default').prop('disabled', false);
+
+                // Set UI cho ảnh mới
+                const row = btn.closest('tr');
+                row.addClass('table-success');
+                row.find('.td-default').html('<span class="badge bg-success">Default</span>');
+                btn.prop('disabled', true);
             });
         });
     </script>

@@ -10,7 +10,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class ProductImage
 {
     [Key]
-    [Column("PRODUCT_IMAGESID")]
+    [Column("ID")]
     public long ProductImagesid { get; set; }
 
     [Column("PRODUCTID")]

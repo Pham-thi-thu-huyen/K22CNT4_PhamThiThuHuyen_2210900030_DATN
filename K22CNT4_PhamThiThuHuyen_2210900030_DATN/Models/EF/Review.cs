@@ -10,7 +10,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class Review
 {
     [Key]
-    [Column("REVIEWID")]
+    [Column("ID")]
     public long Reviewid { get; set; }
 
     [Column("PRODUCTID")]

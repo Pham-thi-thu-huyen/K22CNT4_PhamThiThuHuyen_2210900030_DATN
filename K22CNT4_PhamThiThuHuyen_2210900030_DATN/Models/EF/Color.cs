@@ -10,7 +10,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class Color
 {
     [Key]
-    [Column("COLORID")]
+    [Column("ID")]
     public long Colorid { get; set; }
 
     [Column("NAME")]

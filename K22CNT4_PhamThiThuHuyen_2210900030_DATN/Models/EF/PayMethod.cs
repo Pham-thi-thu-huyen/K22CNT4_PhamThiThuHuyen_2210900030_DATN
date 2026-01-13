@@ -10,7 +10,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class PayMethod
 {
     [Key]
-    [Column("PAY_METHODID")]
+    [Column("ID")]
     public long PayMethodid { get; set; }
 
     [Column("NAME")]

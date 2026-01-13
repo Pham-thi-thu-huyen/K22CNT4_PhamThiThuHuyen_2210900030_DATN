@@ -10,7 +10,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class OrdersDetail
 {
     [Key]
-    [Column("ORDERS_DETAILSID")]
+    [Column("ID")]
     public long OrdersDetailsid { get; set; }
 
     [Column("ORDERSID")]

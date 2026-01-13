@@ -12,7 +12,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class Customer
 {
     [Key]
-    [Column("CUSTOMERID")]
+    [Column("ID")]
     public long Customerid { get; set; }
 
     [Column("USERNAME")]

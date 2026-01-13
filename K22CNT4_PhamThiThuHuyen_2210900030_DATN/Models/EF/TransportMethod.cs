@@ -10,7 +10,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class TransportMethod
 {
     [Key]
-    [Column("TRANSPORT_METHODID")]
+    [Column("ID")]
     public long TransportMethodid { get; set; }
 
     [Column("NAME")]

@@ -10,7 +10,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF;
 public partial class ProductVariant
 {
     [Key]
-    [Column("PRODUCT_VARIANTID")]
+    [Column("ID")]
     public long ProductVariantid { get; set; }
 
     [Column("PRODUCTID")]

@@ -37,6 +37,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
 
             return View();
         }
+
         // ================= CREATE (POST) =================
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -49,13 +50,8 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
                     .ToList();
                 return View(model);
             }
-            _context.Products.Add(model);
-            _context.SaveChanges();
 
-            return RedirectToAction("Edit", new { id = model.Id });
-
-
-            // ===== MAP CHECKBOX (byte?) =====
+            // ===== MAP CHECKBOX =====
             model.Isactive = Request.Form["Isactive"] == "1" ? (byte)1 : (byte)0;
             model.Issale = Request.Form["Issale"] == "1" ? (byte)1 : (byte)0;
             model.Istopsale = Request.Form["Istopsale"] == "1" ? (byte)1 : (byte)0;
@@ -73,10 +69,11 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
                     .Replace(" ", "-");
             }
 
+            // ===== LƯU PRODUCT =====
             _context.Products.Add(model);
-            _context.SaveChanges();
+            _context.SaveChanges(); // PHẢI SAVE TRƯỚC
 
-            // ===== LƯU ẢNH =====
+            // ===== LƯU ẢNH BAN ĐẦU =====
             if (images != null && images.Count > 0)
             {
                 var uploadPath = Path.Combine(
@@ -85,9 +82,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
                 );
 
                 if (!Directory.Exists(uploadPath))
-                {
                     Directory.CreateDirectory(uploadPath);
-                }
 
                 for (int i = 0; i < images.Count; i++)
                 {
@@ -113,9 +108,9 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            // 👉 Tạo xong → sang Edit để quản lý ảnh nâng cao
+            return RedirectToAction("Edit", new { id = model.Id });
         }
-
 
         // ================= EDIT (GET) =================
         [HttpGet]
@@ -125,8 +120,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
                 .Include(x => x.ProductImages)
                 .FirstOrDefault(x => x.Id == id);
 
-            if (product == null)
-                return NotFound();
+            if (product == null) return NotFound();
 
             ViewBag.Categories = _context.Categories.ToList();
             return View(product);
@@ -137,28 +131,25 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Product model)
         {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Categories = _context.Categories.ToList();
-                return View(model);
-            }
-
             var product = _context.Products.Find(model.Id);
-            if (product == null)
-                return NotFound();
+            if (product == null) return NotFound();
 
-            // ===== UPDATE CÁC FIELD CHO PHÉP =====
             product.Name = model.Name;
-            product.Price = model.Price;
+            product.Slug = model.Slug;
             product.Categoryid = model.Categoryid;
             product.Description = model.Description;
             product.Contents = model.Contents;
-            product.MetaTitle = model.MetaTitle;
-            product.MetaKeyword = model.MetaKeyword;
-            product.MetaDesc = model.MetaDesc;
-            product.Slug = model.Slug;
+            product.Price = model.Price;
+
+            // MAP CHECKBOX
+            product.Isactive = Request.Form["Isactive"] == "1" ? (byte)1 : (byte)0;
+            product.Issale = Request.Form["Issale"] == "1" ? (byte)1 : (byte)0;
+            product.Istopsale = Request.Form["Istopsale"] == "1" ? (byte)1 : (byte)0;
+            product.Ishome = Request.Form["Ishome"] == "1" ? (byte)1 : (byte)0;
 
             _context.SaveChanges();
+
+            // 🔥 LƯU XONG → VỀ DANH SÁCH SẢN PHẨM
             return RedirectToAction("Index");
         }
 
