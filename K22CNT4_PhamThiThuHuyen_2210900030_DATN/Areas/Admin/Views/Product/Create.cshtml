@@ -5,32 +5,60 @@
 
 <h1>Thêm sản phẩm</h1>
 
-<form asp-area="Admin" asp-controller="Product" asp-action="Create"
-      method="post" enctype="multipart/form-data">
+<form asp-area="Admin"
+      asp-controller="Product"
+      asp-action="Create"
+      method="post"
+      enctype="multipart/form-data">
 
     @Html.AntiForgeryToken()
 
     <div class="card">
         <div class="card-body">
 
-            <label>Tên sản phẩm</label>
-            <input asp-for="Name" class="form-control" />
+            <!-- TÊN -->
+            <div class="mb-3">
+                <label class="form-label">Tên sản phẩm</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
 
-            <label>Danh mục</label>
-            <select asp-for="Categoryid" class="form-control">
-                @foreach (var c in ViewBag.Categories)
-                {
-                    <option value="@c.Id">@c.Name</option>
-                }
-            </select>
+            <!-- DANH MỤC -->
+            <div class="mb-3">
+                <label class="form-label">Danh mục</label>
+                <select asp-for="Categoryid" class="form-control">
+                    @foreach (var c in ViewBag.Categories)
+                    {
+                        <option value="@c.Id">@c.Name</option>
+                    }
+                </select>
+            </div>
 
-            <label>Giá</label>
-            <input asp-for="Price" class="form-control" />
+            <!-- 🔹 GENDER (QUAN TRỌNG NHẤT) -->
+            <div class="mb-3">
+                <label class="form-label">Giới tính</label>
+                <select asp-for="Gender" class="form-control">
+                    <option value="1">Bé gái</option>
+                    <option value="2">Bé trai</option>
+                </select>
+            </div>
+
+            <!-- GIÁ -->
+            <div class="mb-3">
+                <label class="form-label">Giá</label>
+                <input asp-for="Price" class="form-control" />
+            </div>
 
             <hr />
 
-            <label>Ảnh sản phẩm</label>
-            <input type="file" name="images" id="imageInput" multiple class="form-control" />
+            <!-- ẢNH -->
+            <div class="mb-3">
+                <label class="form-label">Ảnh sản phẩm</label>
+                <input type="file"
+                       name="images"
+                       id="imageInput"
+                       multiple
+                       class="form-control" />
+            </div>
 
             <input type="hidden" name="defaultImage" id="defaultImage" value="0" />
 
@@ -57,8 +85,11 @@
                     preview.innerHTML += `
                     <div class="col-md-3 text-center">
                         <img src="${e.target.result}" class="img-thumbnail mb-1"/>
-                        <input type="radio" name="r" ${i==0?'checked':''}
-                            onclick="def.value=${i}"> Mặc định
+                        <div>
+                            <input type="radio" name="r" ${i==0?'checked':''}
+                                   onclick="def.value=${i}">
+                            Ảnh mặc định
+                        </div>
                     </div>`;
                 };
                 reader.readAsDataURL(file);

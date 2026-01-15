@@ -57,6 +57,10 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
             model.Istopsale = Request.Form["Istopsale"] == "1" ? (byte)1 : (byte)0;
             model.Ishome = Request.Form["Ishome"] == "1" ? (byte)1 : (byte)0;
 
+            // ===== GENDER (NẾU CHƯA CHỌN → MẶC ĐỊNH BÉ GÁI) =====
+            if (model.Gender != 1 && model.Gender != 2)
+                model.Gender = 1;
+
             // ===== GIÁ TRỊ MẶC ĐỊNH =====
             model.CreatedDate = DateTime.Now;
             model.Isdelete = 0;
@@ -73,7 +77,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
             _context.Products.Add(model);
             _context.SaveChanges(); // PHẢI SAVE TRƯỚC
 
-            // ===== LƯU ẢNH BAN ĐẦU =====
+            // ===== LƯU ẢNH =====
             if (images != null && images.Count > 0)
             {
                 var uploadPath = Path.Combine(
@@ -108,7 +112,6 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
                 _context.SaveChanges();
             }
 
-            // 👉 Tạo xong → sang Edit để quản lý ảnh nâng cao
             return RedirectToAction("Edit", new { id = model.Id });
         }
 
@@ -141,6 +144,9 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
             product.Contents = model.Contents;
             product.Price = model.Price;
 
+            // 🔹 GENDER
+            product.Gender = (model.Gender == 2) ? 2 : 1;
+
             // MAP CHECKBOX
             product.Isactive = Request.Form["Isactive"] == "1" ? (byte)1 : (byte)0;
             product.Issale = Request.Form["Issale"] == "1" ? (byte)1 : (byte)0;
@@ -149,11 +155,10 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
 
             _context.SaveChanges();
 
-            // 🔥 LƯU XONG → VỀ DANH SÁCH SẢN PHẨM
             return RedirectToAction("Index");
         }
 
-        // ================= DELETE (XÓA MỀM) =================
+        // ================= DELETE (SOFT DELETE) =================
         [HttpPost]
         public JsonResult Delete(long id)
         {

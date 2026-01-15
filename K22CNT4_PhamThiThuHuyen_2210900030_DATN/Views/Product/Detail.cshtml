@@ -1,0 +1,55 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.ViewModels.ProductDetailVM
+
+<div class="container product-detail mt-5">
+
+    <div class="row">
+
+        <!-- ===== CỘT TRÁI: CHI TIẾT + ẢNH ===== -->
+        <div class="col-md-6">
+
+            <!-- ✅ ĐẶT Ở ĐÂY -->
+            <h3 class="mb-3 fw-bold">Chi tiết sản phẩm</h3>
+
+            <img src="@Model.Images.FirstOrDefault()"
+                 class="img-fluid main-image mb-3"
+                 alt="@Model.Name">
+
+            <div class="thumbs d-flex gap-2">
+                @foreach (var img in Model.Images)
+                {
+                    <img src="@img"
+                         class="thumb"
+                         style="width:80px; cursor:pointer;">
+                }
+            </div>
+
+            <div class="product-content mt-4">
+                @Html.Raw(Model.Contents)
+            </div>
+        </div>
+
+        <!-- ===== CỘT PHẢI: THÔNG TIN MUA ===== -->
+        <div class="col-md-6">
+            <h1 class="mb-3">@Model.Name</h1>
+
+            <p class="price text-danger fs-3 fw-bold">
+                @Model.Price.ToString("N0") ₫
+            </p>
+
+            <div class="quantity mt-3">
+                <label>Số lượng:</label>
+                <input type="number" value="1" min="1" class="form-control w-25">
+            </div>
+
+            <div class="actions mt-4 d-flex gap-3">
+                <button class="btn btn-outline-danger px-4">
+                    Thêm vào giỏ
+                </button>
+                <button class="btn btn-danger px-4">
+                    Mua ngay
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

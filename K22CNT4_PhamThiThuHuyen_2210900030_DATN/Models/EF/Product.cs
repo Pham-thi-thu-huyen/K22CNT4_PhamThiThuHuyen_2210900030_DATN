@@ -29,6 +29,12 @@ public partial class Product
     [Column("PRICE", TypeName = "decimal(18, 2)")]
     public decimal? Price { get; set; }
 
+    // 🔹 GENDER (THÊM MỚI)
+    // 1 = Bé gái
+    // 2 = Bé trai
+    [Column("GENDER")]
+    public int Gender { get; set; }
+
     [Column("SLUG")]
     [StringLength(160)]
     public string? Slug { get; set; }
@@ -63,6 +69,7 @@ public partial class Product
     [Column("ISHOME")]
     public byte? Ishome { get; set; }
 
+    // 🔹 RELATIONSHIP
     [ForeignKey("Categoryid")]
     [InverseProperty("Products")]
     public virtual Category? Category { get; set; }

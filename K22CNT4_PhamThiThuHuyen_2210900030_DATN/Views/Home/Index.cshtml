@@ -1,8 +1,124 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.ViewModels.HomeVM
+@{
+    ViewData["Title"] = "Trang chủ";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- ================= BANNER ================= -->
+<div class="section-home-banners home-banner">
+    <div class="container">
+        <div class="row">
+
+            <!-- Bé gái -->
+            <div class="item-home-banner col-12 col-lg-6">
+                <div class="item-home-banner-inner effect-image">
+                    <div class="media-home-banner">
+                        <a asp-controller="Product" asp-action="Girls">
+                            <img src="https://theme.hstatic.net/200000770807/1001123544/14/img_home_banner_desktop_1.jpg?v=353"
+                                 class="img-fluid" />
+                        </a>
+                    </div>
+                    <div class="info-home-banner">
+                        <h4><a asp-controller="Product" asp-action="Girls">Thời trang bé gái</a></h4>
+                        <p>Những mẫu quần áo bé gái mới nhất, đáng yêu và thời trang.</p>
+                        <a class="btn-home-banner" asp-controller="Product" asp-action="Girls">Mua ngay</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bé trai -->
+            <div class="item-home-banner col-12 col-lg-6">
+                <div class="item-home-banner-inner effect-image">
+                    <div class="media-home-banner">
+                        <a asp-controller="Product" asp-action="Boys">
+                            <img src="https://theme.hstatic.net/200000770807/1001123544/14/img_home_banner_desktop_2.jpg?v=353"
+                                 class="img-fluid" />
+                        </a>
+                    </div>
+                    <div class="info-home-banner">
+                        <h4><a asp-controller="Product" asp-action="Boys">Quần áo bé trai</a></h4>
+                        <p>Thời trang bé trai năng động, cá tính và cực chất.</p>
+                        <a class="btn-home-banner" asp-controller="Product" asp-action="Boys">Mua ngay</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
+
+<!-- ================= SẢN PHẨM NỔI BẬT (AJAX) ================= -->
+<section class="home-product-section">
+    <div class="container">
+        <h2 class="home-title">Sản phẩm nổi bật</h2>
+
+        <div id="featured-container">
+            @await Html.PartialAsync("_FeaturedProducts", Model)
+        </div>
+    </div>
+</section>
+
+<!-- ================= SẢN PHẨM SALE (CHƯA AJAX) ================= -->
+<section class="home-product-section bg-light">
+    <div class="container">
+        <h2 class="home-title">Sản phẩm đang sale</h2>
+
+        <div class="row g-4">
+            @foreach (var p in Model.SaleProducts)
+            {
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="home-product-card sale">
+                        <span class="sale-badge">SALE</span>
+                        <img src="@(string.IsNullOrEmpty(p.Image) ? "/uploads/products/no-image.png" : p.Image)" />
+                        <h4 class="product-name">@p.Name</h4>
+                        <p class="product-price">@p.Price.ToString("N0") ₫</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ================= TIN TỨC (UI) ================= -->
+<section class="home-news-section">
+    <div class="container">
+        <h2 class="home-title">Tin tức & xu hướng</h2>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="news-card">
+                    <img src="https://file.hstatic.net/200000770807/article/capture_9b3283ac85584578a1c09a0cb3916d18_grande.jpg" />
+                    <h4>Xu hướng thời trang trẻ em 2026</h4>
+                    <p>Những mẫu quần áo nổi bật cho bé năm nay.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="news-card">
+                    <img src="https://file.hstatic.net/200000770807/article/capture_1176adcb7bdc42d2a652d62f3b614e88_grande.jpg" />
+                    <h4>Cách chọn đồ an toàn cho bé</h4>
+                    <p>Bí quyết chọn quần áo phù hợp cho trẻ.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="news-card">
+                    <img src="https://file.hstatic.net/200000770807/article/capture_efca70981feb4f6984863c972acf36b3_grande.jpg" />
+                    <h4>Babi – Đồng hành cùng tuổi thơ</h4>
+                    <p>Không chỉ là quần áo, mà là yêu thương.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        function loadFeaturedPage(page) {
+            fetch('/Home/LoadFeatured?page=' + page)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('featured-container').innerHTML = html;
+                });
+        }
+    </script>
+}
+
+}

@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
@@ -28,4 +28,33 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+/* ================= PRODUCT LIST FIX ================= */
+
+.fruite-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Tên SP: 2 dòng */
+.product-name {
+    line-height: 22px;
+    min-height: 44px;
+    overflow: hidden;
+}
+
+/* Mô tả: cố định */
+.product-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 20px;
+    min-height: 40px;
+    overflow: hidden;
 }

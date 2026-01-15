@@ -1,0 +1,57 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.ViewModels.HomeVM
+
+<div class="row g-4">
+    @foreach (var p in Model.FeaturedProducts)
+    {
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="home-product-card">
+
+                <!-- Ảnh + link chi tiết -->
+                <a asp-controller="Product"
+                   asp-action="Detail"
+                   asp-route-slug="@p.Slug"
+                   class="product-link">
+
+                    <img src="@(string.IsNullOrEmpty(p.Image)
+                                                 ? "/uploads/products/no-image.png"
+                                                 : p.Image)"
+                         alt="@p.Name"
+                         class="img-fluid">
+                </a>
+
+                <!-- Tên sản phẩm (click được) -->
+                <h4 class="product-name">
+                    <a asp-controller="Product"
+                       asp-action="Detail"
+                       asp-route-slug="@p.Slug"
+                       class="text-dark text-decoration-none">
+                        @p.Name
+                    </a>
+                </h4>
+
+                <p class="product-price">
+                    @p.Price.ToString("N0") ₫
+                </p>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- ================= PHÂN TRANG (LUÔN HIỆN) ================= -->
+<div class="pagination-home mt-4 text-center">
+    @{
+        // Nếu chỉ có 1 trang thì vẫn hiển thị "1"
+        int totalPages = Model.FeaturedTotalPages < 1
+        ? 1
+        : Model.FeaturedTotalPages;
+    }
+
+    @for (int i = 1; i <= totalPages; i++)
+    {
+        <a href="javascript:void(0)"
+           class="@(i == Model.FeaturedPage ? "active" : "")"
+           onclick="loadFeaturedPage(@i)">
+            @i
+        </a>
+    }
+</div>

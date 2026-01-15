@@ -40,17 +40,17 @@
         <div class="card-body">
 
             <!-- ================= THÔNG TIN ================= -->
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label>Tên sản phẩm</label>
                 <input asp-for="Name" class="form-control" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label>Slug</label>
                 <input asp-for="Slug" class="form-control" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label>Danh mục</label>
                 <select asp-for="Categoryid" class="form-control">
                     @foreach (var c in ViewBag.Categories)
@@ -63,19 +63,28 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <!-- 🔹 GENDER (BÉ GÁI / BÉ TRAI) -->
+            <div class="form-group mb-3">
+                <label>Giới tính</label>
+                <select asp-for="Gender" class="form-control">
+                    <option value="1" selected="@(Model.Gender == 1)">Bé gái</option>
+                    <option value="2" selected="@(Model.Gender == 2)">Bé trai</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
                 <label>Mô tả ngắn</label>
                 <textarea asp-for="Description" class="form-control"></textarea>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label>Chi tiết sản phẩm</label>
                 <textarea asp-for="Contents"
                           class="form-control"
                           id="txtDetail"></textarea>
             </div>
 
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-md-4">
                     <label>Giá</label>
                     <input asp-for="Price" class="form-control" />
