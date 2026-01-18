@@ -1,10 +1,16 @@
 ﻿@model IEnumerable<K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Product>
 
-
-
 @{
     ViewBag.Title = "Sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+
+    var selectedCategory = Context.Request.Query["categoryId"].ToString();
+    var selectedStatus = Context.Request.Query["status"].ToString();
+
+    var selectedSizes = Context.Request.Query["sizeIds"];
+    var selectedColors = Context.Request.Query["colorIds"];
+    var selectedMaterials = Context.Request.Query["materialIds"];
 }
 
 <h1>Quản lý sản phẩm</h1>
@@ -16,82 +22,221 @@
     ➕ Thêm sản phẩm
 </a>
 
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Hình ảnh</th>
-            <th>Tên SP</th>
-            <th>Danh mục</th>
-            <th>Giá</th>
-            <th>Sale</th>
-            <th>Top</th>
-            <th>Home</th>
-            <th>Trạng thái</th>
-            <th>Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Id</td>
+<div class="row">
 
-                <td>
-                    @{
-                        var img = item.ProductImages != null
-                        ? item.ProductImages.FirstOrDefault(x => x.Isdefault == 1)
-                        ?? item.ProductImages.FirstOrDefault()
-                        : null;
-                    }
+    <!-- ================== CỘT TRÁI: DANH SÁCH SẢN PHẨM ================== -->
+    <div class="col-lg-7">
 
-                    @if (img != null)
-                    {
-                        <img src="@img.Urlimg"
-                             style="width:60px;height:60px;object-fit:cover" />
-                    }
-                </td>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên SP</th>
+                    <th>Danh mục</th>
+                    <th>Giá</th>
+                    <th>Sale</th>
+                    <th>Top</th>
+                    <th>Home</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
 
-                <td>@item.Name</td>
-                <td>@item.Category?.Name</td>
-                <td>@item.Price?.ToString("N0") đ</td>
+                        <td>
+                            @{
+                                var img = item.ProductImages != null
+                                    ? item.ProductImages.FirstOrDefault(x => x.Isdefault == 1)
+                                      ?? item.ProductImages.FirstOrDefault()
+                                    : null;
+                            }
 
-                <td>@(item.Issale == 1 ? "✔" : "")</td>
-                <td>@(item.Istopsale == 1 ? "✔" : "")</td>
-                <td>@(item.Ishome == 1 ? "✔" : "")</td>
+                            @if (img != null)
+                            {
+                                <img src="@img.Urlimg"
+                                     style="width:60px;height:60px;object-fit:cover" />
+                            }
+                        </td>
 
-                <td>
-                    <span class="badge @(item.Isactive == 1 ? "bg-success" : "bg-secondary")">
-                        @(item.Isactive == 1 ? "Hiển thị" : "Ẩn")
-                    </span>
-                </td>
+                        <td>@item.Name</td>
+                        <td>@item.Category?.Name</td>
+                        <td>@item.Price?.ToString("N0") đ</td>
 
-                <td>
-                    <a asp-area="Admin"
-                       asp-controller="Product"
-                       asp-action="Edit"
-                       asp-route-id="@item.Id"
-                       class="btn btn-warning btn-sm">
-                        Sửa
-                    </a>
+                        <td>@(item.Issale == 1 ? "✔" : "")</td>
+                        <td>@(item.Istopsale == 1 ? "✔" : "")</td>
+                        <td>@(item.Ishome == 1 ? "✔" : "")</td>
 
-                    <!-- 🔴 XOÁ BẰNG AJAX – KHÔNG SUBMIT -->
-                    <a href="javascript:void(0)"
-                       class="btn btn-danger btn-sm btn-delete"
-                       data-id="@item.Id">
-                        Xóa
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                        <td>
+                            <span class="badge @(item.Isactive == 1 ? "bg-success" : "bg-secondary")">
+                                @(item.Isactive == 1 ? "Hiển thị" : "Ẩn")
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <a asp-area="Admin"
+                                   asp-controller="Product"
+                                   asp-action="Edit"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-warning btn-sm">
+                                    Sửa
+                                </a>
+
+                                <a href="javascript:void(0)"
+                                   class="btn btn-danger btn-sm btn-delete"
+                                   data-id="@item.Id">
+                                    Xóa
+                                </a>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- ================== FILTER (CỘT GIỮA + PHẢI) ================== -->
+   <div class="col-lg-4">
+    <form method="get">
+
+        <div class="row">
+            <!-- ================= CHECKBOX (BÊN TRÁI) ================= -->
+            <div class="col-md-6">
+
+                <!-- SIZE -->
+                <div class="card mb-3">
+                    <div class="card-header fw-bold">Size</div>
+                    <div class="card-body">
+                        @foreach (var s in ViewBag.Sizes)
+                        {
+                            var checkedSize = Context.Request.Query["sizeIds"]
+                                .Any(x => x == s.Sizeid.ToString());
+
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="sizeIds"
+                                       value="@s.Sizeid"
+                                       @(checkedSize ? "checked" : "") />
+                                <label class="form-check-label">
+                                    @s.Name
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- COLOR -->
+                <div class="card mb-3">
+                    <div class="card-header fw-bold">Màu sắc</div>
+                    <div class="card-body">
+                        @foreach (var c in ViewBag.Colors)
+                        {
+                            var checkedColor = Context.Request.Query["colorIds"]
+                                .Any(x => x == c.Colorid.ToString());
+
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="colorIds"
+                                       value="@c.Colorid"
+                                       @(checkedColor ? "checked" : "") />
+                                <label class="form-check-label">
+                                    @c.Name
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- MATERIAL -->
+                <div class="card mb-3">
+                    <div class="card-header fw-bold">Chất liệu</div>
+                    <div class="card-body">
+                        @foreach (var m in ViewBag.Materials)
+                        {
+                            var checkedMaterial = Context.Request.Query["materialIds"]
+                                .Any(x => x == m.Materialid.ToString());
+
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="materialIds"
+                                       value="@m.Materialid"
+                                       @(checkedMaterial ? "checked" : "") />
+                                <label class="form-check-label">
+                                    @m.Name
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ================= SELECTBOX (BÊN PHẢI) ================= -->
+            <div class="col-md-6">
+
+                <!-- DANH MỤC -->
+                    <select name="categoryId" class="form-select">
+                        <option value="">Tất cả</option>
+
+                        @foreach (var cat in ViewBag.Categories)
+                        {
+                            if (Context.Request.Query["categoryId"] == cat.Id.ToString())
+                            {
+                                <option value="@cat.Id" selected="selected">@cat.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        }
+                    </select>
+
+
+                <!-- TRẠNG THÁI -->
+                    <select name="status" class="form-select">
+                        <option value="">Tất cả</option>
+
+                        @if (Context.Request.Query["status"] == "1")
+                        {
+                            <option value="1" selected="selected">Hiển thị</option>
+                        }
+                        else
+                        {
+                            <option value="1">Hiển thị</option>
+                        }
+
+                        @if (Context.Request.Query["status"] == "0")
+                        {
+                            <option value="0" selected="selected">Ẩn</option>
+                        }
+                        else
+                        {
+                            <option value="0">Ẩn</option>
+                        }
+                    </select>
+
+        <button type="submit" class="btn btn-primary w-100">
+            🔍 Lọc sản phẩm
+        </button>
+
+    </form>
+</div>
+
 
 @section Scripts {
     <script>
         // ===== XOÁ SẢN PHẨM (AJAX – KHÔNG NHẢY TRANG) =====
         $(document).on('click', '.btn-delete', function (e) {
-            e.preventDefault(); // 🔥 CHẶN NHẢY TRANG
+            e.preventDefault();
 
             if (!confirm('Xóa sản phẩm này?')) return;
 
@@ -103,7 +248,7 @@
                 data: { id: id },
                 success: function (res) {
                     if (res.success) {
-                        location.reload(); // reload lại danh sách
+                        location.reload();
                     } else {
                         alert('Xóa thất bại');
                     }

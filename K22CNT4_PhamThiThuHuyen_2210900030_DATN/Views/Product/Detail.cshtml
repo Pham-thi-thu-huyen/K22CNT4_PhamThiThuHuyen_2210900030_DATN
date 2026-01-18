@@ -1,55 +1,249 @@
 ﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.ViewModels.ProductDetailVM
+@using K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF
+
+<style>
+    .btn-size, .btn-color, .btn-material {
+        margin: 5px;
+        padding: 8px 15px;
+        border: 2px solid #ddd;
+        background: white;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .btn-size.active, .btn-color.active, .btn-material.active {
+        background: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .btn-disabled {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+</style>
 
 <div class="container product-detail mt-5">
-
     <div class="row">
 
-        <!-- ===== CỘT TRÁI: CHI TIẾT + ẢNH ===== -->
+        <!-- ===== TRÁI ===== -->
         <div class="col-md-6">
 
-            <!-- ✅ ĐẶT Ở ĐÂY -->
-            <h3 class="mb-3 fw-bold">Chi tiết sản phẩm</h3>
-
-            <img src="@Model.Images.FirstOrDefault()"
-                 class="img-fluid main-image mb-3"
+            <img src="@(Model.Images?.FirstOrDefault() ?? "/uploads/no-image.png")"
+                 class="img-fluid mb-3"
                  alt="@Model.Name">
 
-            <div class="thumbs d-flex gap-2">
-                @foreach (var img in Model.Images)
-                {
-                    <img src="@img"
-                         class="thumb"
-                         style="width:80px; cursor:pointer;">
-                }
-            </div>
+            @if (Model.Images != null && Model.Images.Count > 1)
+            {
+                <div class="d-flex gap-2">
+                    @foreach (var img in Model.Images)
+                    {
+                        <img src="@img" style="width:80px;cursor:pointer">
+                    }
+                </div>
+            }
 
-            <div class="product-content mt-4">
+            <div class="mt-4">
                 @Html.Raw(Model.Contents)
             </div>
         </div>
 
-        <!-- ===== CỘT PHẢI: THÔNG TIN MUA ===== -->
+        <!-- ===== PHẢI ===== -->
         <div class="col-md-6">
-            <h1 class="mb-3">@Model.Name</h1>
+            <h1>@Model.Name</h1>
 
             <p class="price text-danger fs-3 fw-bold">
                 @Model.Price.ToString("N0") ₫
             </p>
 
-            <div class="quantity mt-3">
-                <label>Số lượng:</label>
-                <input type="number" value="1" min="1" class="form-control w-25">
+            <!-- SIZE -->
+            <div class="mb-3">
+                <label class="fw-bold">Size:</label><br />
+                @if (ViewBag.Sizes != null)
+                {
+                    foreach (var size in ViewBag.Sizes as List<Size>)
+                    {
+                        <button type="button"
+                                class="btn-size"
+                                data-size-id="@size.Sizeid">
+                            @size.Name
+                        </button>
+                    }
+                }
             </div>
 
-            <div class="actions mt-4 d-flex gap-3">
-                <button class="btn btn-outline-danger px-4">
+            <!-- COLOR -->
+            <div class="mb-3">
+                <label class="fw-bold">Màu sắc:</label><br />
+                @if (ViewBag.Colors != null)
+                {
+                    foreach (var color in ViewBag.Colors as List<Color>)
+                    {
+                        <button type="button"
+                                class="btn-color"
+                                data-color-id="@color.Colorid">
+                            @color.Name
+                        </button>
+                    }
+                }
+            </div>
+
+            <!-- MATERIAL -->
+            <div class="mb-3">
+                <label class="fw-bold">Chất liệu:</label><br />
+                @if (ViewBag.Materials != null)
+                {
+                    foreach (var material in ViewBag.Materials as List<Material>)
+                    {
+                        <button type="button"
+                                class="btn-material"
+                                data-material-id="@material.Materialid">
+                            @material.Name
+                        </button>
+                    }
+                }
+            </div>
+
+            <!-- QUANTITY -->
+            <div class="mb-3">
+                <label>Số lượng:</label>
+                <input type="number"
+                       id="quantity-input"
+                       value="1"
+                       min="1"
+                       class="form-control w-25">
+            </div>
+
+            <!-- ACTION -->
+            <div class="mt-4 d-flex gap-3">
+                <a href="#"
+                   id="btn-add-to-cart"
+                   class="btn btn-outline-danger btn-disabled">
                     Thêm vào giỏ
-                </button>
-                <button class="btn btn-danger px-4">
+                </a>
+
+                <a href="#"
+                   id="btn-buy-now"
+                   class="btn btn-danger btn-disabled">
                     Mua ngay
-                </button>
+                </a>
             </div>
         </div>
-
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    let selectedSize = null;
+    let selectedColor = null;
+    let selectedMaterial = null;
+    let currentVariantId = null;
+
+    const btnAdd = document.getElementById('btn-add-to-cart');
+    const btnBuy = document.getElementById('btn-buy-now');
+
+    function activate(btns, current) {
+        btns.forEach(b => b.classList.remove('active'));
+        current.classList.add('active');
+    }
+
+    function resetAfter(level) {
+        if (level <= 1) {
+            selectedColor = null;
+            document.querySelectorAll('.btn-color').forEach(b => b.classList.remove('active'));
+        }
+        if (level <= 2) {
+            selectedMaterial = null;
+            document.querySelectorAll('.btn-material').forEach(b => b.classList.remove('active'));
+        }
+        currentVariantId = null;
+        disableCart();
+    }
+
+    function enableCart() {
+        btnAdd.classList.remove('btn-disabled');
+        btnBuy.classList.remove('btn-disabled');
+    }
+
+    function disableCart() {
+        btnAdd.classList.add('btn-disabled');
+        btnBuy.classList.add('btn-disabled');
+    }
+
+    document.querySelectorAll('.btn-size').forEach(btn => {
+        btn.onclick = function () {
+            activate(document.querySelectorAll('.btn-size'), this);
+            selectedSize = this.dataset.sizeId;
+            resetAfter(1);
+        }
+    });
+
+    document.querySelectorAll('.btn-color').forEach(btn => {
+        btn.onclick = function () {
+            activate(document.querySelectorAll('.btn-color'), this);
+            selectedColor = this.dataset.colorId;
+            resetAfter(2);
+        }
+    });
+
+    document.querySelectorAll('.btn-material').forEach(btn => {
+        btn.onclick = function () {
+            activate(document.querySelectorAll('.btn-material'), this);
+            selectedMaterial = this.dataset.materialId;
+            fetchVariant();
+        }
+    });
+
+    function fetchVariant() {
+        if (!selectedSize || !selectedColor || !selectedMaterial) return;
+
+        fetch('@Url.Action("GetProductVariant", "Product")', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body:
+                `productId=@Model.Id` +
+                `&sizeId=${selectedSize}` +
+                `&colorId=${selectedColor}` +
+                `&materialId=${selectedMaterial}`
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success || !data.variantId) {
+                alert('Không tồn tại biến thể này');
+                disableCart();
+                return;
+            }
+
+            currentVariantId = data.variantId;
+
+            if (data.price !== null) {
+                document.querySelector('.price').innerText =
+                    data.price.toLocaleString('vi-VN') + ' ₫';
+            }
+
+            enableCart();
+        });
+    }
+
+    function addToCart(buyNow) {
+        if (!currentVariantId) return;
+
+        const qty = document.getElementById('quantity-input').value;
+        let url = `/Cart/Add?id=${currentVariantId}&quantity=${qty}`;
+
+        if (buyNow) url += '&buyNow=true';
+        window.location.href = url;
+    }
+
+    btnAdd.onclick = e => {
+        e.preventDefault();
+        addToCart(false);
+    };
+
+    btnBuy.onclick = e => {
+        e.preventDefault();
+        addToCart(true);
+    };
+});
+</script>

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Color>
+
+@{
+    ViewBag.Title = "Quản lý Màu sắc";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Quản lý Màu sắc</h2>
+
+<form asp-action="Create" method="post" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <input type="text"
+               name="name"
+               class="form-control"
+               placeholder="Tên màu (Đỏ, Xanh...)"
+               required />
+    </div>
+
+    <div class="col-md-4">
+        <input type="text"
+               name="code"
+               class="form-control"
+               placeholder="Mã màu (VD: #ff0000)" />
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">
+            ➕ Thêm
+        </button>
+    </div>
+</form>
+
+<table class="table table-bordered table-hover align-middle text-center">
+    <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>Tên màu</th>
+            <th>Mã màu</th>
+            <th>Hiển thị</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Colorid</td>
+                <td>@c.Name</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(c.Code))
+                    {
+                        <span style="display:inline-block;width:20px;height:20px;
+                                             background:@c.Code;border:1px solid #ccc"></span>
+                        <small>@c.Code</small>
+                    }
+                </td>
+                <td>
+                    <span class="badge @(c.Isactive == 1 ? "bg-success" : "bg-secondary")">
+                        @(c.Isactive == 1 ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td>
+                    <form asp-action="Toggle" method="post" style="display:inline">
+                        <input type="hidden" name="id" value="@c.Colorid" />
+                        <button class="btn btn-warning btn-sm">
+                            Bật / Tắt
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

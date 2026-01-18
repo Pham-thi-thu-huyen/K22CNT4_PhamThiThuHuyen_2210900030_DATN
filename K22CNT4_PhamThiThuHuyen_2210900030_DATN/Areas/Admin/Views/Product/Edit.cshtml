@@ -63,12 +63,13 @@
                 </select>
             </div>
 
-            <!-- 🔹 GENDER (BÉ GÁI / BÉ TRAI) -->
+            <!-- ================= GENDER ================= -->
             <div class="form-group mb-3">
                 <label>Giới tính</label>
                 <select asp-for="Gender" class="form-control">
                     <option value="1" selected="@(Model.Gender == 1)">Bé gái</option>
                     <option value="2" selected="@(Model.Gender == 2)">Bé trai</option>
+                    <option value="3" selected="@(Model.Gender == 3)">Unisex</option>
                 </select>
             </div>
 
@@ -93,7 +94,38 @@
 
             <hr />
 
-            <!-- ================= CHECKBOX ================= -->
+            <!-- ================= SIZE SẢN PHẨM (🔥 THÊM MỚI) ================= -->
+            <div class="card mb-3">
+                <div class="card-header fw-bold">
+                    Size sản phẩm
+                </div>
+                <div class="card-body">
+
+                    @foreach (var size in ViewBag.Sizes)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox"
+                                   name="SizeIds"
+                                   value="@size.Sizeid"
+                                   class="form-check-input"
+                                   @(Model.ProductVariants.Any(v => v.Sizeid == size.Sizeid) ? "checked" : "") />
+                            <label class="form-check-label">@size.Name</label>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <a asp-area="Admin"
+               asp-controller="ProductVariant"
+               asp-action="Index"
+               asp-route-productId="@Model.Id"
+               class="btn btn-info">
+                Quản lý biến thể
+            </a>
+
+            <hr />
+
+            <!-- ================= CHECKBOX TRẠNG THÁI ================= -->
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-check">
@@ -133,6 +165,8 @@
             </div>
 
         </div>
+       
+
 
         <div class="card-footer text-center">
             <button type="submit" class="btn btn-primary">

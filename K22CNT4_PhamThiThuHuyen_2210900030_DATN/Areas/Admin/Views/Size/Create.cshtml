@@ -1,0 +1,27 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Size
+
+@{
+    ViewBag.Title = "Thêm Size";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Thêm Size</h1>
+
+<form method="post">
+    <div class="mb-3">
+        <label>Tên Size</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Tuổi từ</label>
+        <input asp-for="AgeFrom" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Tuổi đến</label>
+        <input asp-for="AgeTo" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Lưu</button>
+</form>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Size>
+
+@{
+    ViewBag.Title = "Quản lý Size";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Quản lý Size</h1>
+
+<a asp-area="Admin"
+   asp-controller="Size"
+   asp-action="Create"
+   class="btn btn-primary mb-3">
+    ➕ Thêm Size
+</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên Size</th>
+            <th>Độ tuổi</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Sizeid</td>
+                <td>@s.Name</td>
+                <td>
+                    @if (s.AgeFrom != null && s.AgeTo != null)
+                    {
+                        @($"{s.AgeFrom} - {s.AgeTo}")
+                    }
+                </td>
+                <td>
+                    <span class="badge @(s.Isactive == 1 ? "bg-success" : "bg-secondary")">
+                        @(s.Isactive == 1 ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td>
+                    <a asp-area="Admin"
+                       asp-controller="Size"
+                       asp-action="Edit"
+                       asp-route-id="@s.Sizeid"
+                       class="btn btn-warning btn-sm me-2">
+                        Sửa
+                    </a>
+
+                    <form asp-area="Admin"
+                          asp-controller="Size"
+                          asp-action="Toggle"
+                          asp-route-id="@s.Sizeid"
+                          method="post"
+                          style="display:inline">
+                        <button class="btn btn-secondary btn-sm">
+                            Bật / Tắt
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

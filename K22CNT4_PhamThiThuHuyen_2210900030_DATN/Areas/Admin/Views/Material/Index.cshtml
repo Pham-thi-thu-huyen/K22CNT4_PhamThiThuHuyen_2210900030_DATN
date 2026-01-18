@@ -1,0 +1,64 @@
+﻿@model IEnumerable<K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Material>
+
+@{
+    ViewBag.Title = "Quản lý Chất liệu";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Quản lý Chất liệu</h2>
+
+<form asp-action="Create" method="post" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <input type="text"
+               name="name"
+               class="form-control"
+               placeholder="Tên chất liệu..."
+               required />
+    </div>
+    <div class="col-md-4">
+        <input type="text"
+               name="notes"
+               class="form-control"
+               placeholder="Ghi chú (không bắt buộc)" />
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">
+            ➕ Thêm
+        </button>
+    </div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên chất liệu</th>
+            <th>Ghi chú</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.Materialid</td>
+                <td>@m.Name</td>
+                <td>@m.Notes</td>
+                <td>
+                    <span class="badge @(m.Isactive == 1 ? "bg-success" : "bg-secondary")">
+                        @(m.Isactive == 1 ? "Active" : "Inactive")
+                    </span>
+                </td>
+                <td>
+                    <form asp-action="Toggle" method="post" style="display:inline">
+                        <input type="hidden" name="id" value="@m.Materialid" />
+                        <button class="btn btn-sm btn-warning">
+                            Bật / Tắt
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

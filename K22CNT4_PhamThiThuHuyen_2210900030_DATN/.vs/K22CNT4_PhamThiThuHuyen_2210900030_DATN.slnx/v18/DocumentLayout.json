@@ -3,60 +3,12 @@
   "WorkspaceRootPath": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\views\\shared\\_layoutcustomer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:views\\shared\\_layoutcustomer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\areas\\admin\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:areas\\admin\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\views\\product\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:views\\product\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\wwwroot\\css\\home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:wwwroot\\css\\home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\views\\home\\_featuredproducts.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:views\\home\\_featuredproducts.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\viewmodels\\productdetailvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:viewmodels\\productdetailvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\wwwroot\\css\\product-detail.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:wwwroot\\css\\product-detail.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\viewmodels\\homevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:viewmodels\\homevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|d:\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\k22cnt4_phamthithuhuyen_2210900030_datn\\areas\\admin\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8F661D4E-2532-CC48-81F1-1C136C088CAC}|K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj|solutionrelative:areas\\admin\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,188 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Detail.cshtml",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Product\\Detail.cshtml",
-              "RelativeDocumentMoniker": "Views\\Product\\Detail.cshtml",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Product\\Detail.cshtml",
-              "RelativeToolTip": "Views\\Product\\Detail.cshtml",
-              "ViewState": "AgIAABYAAAAAAAAAAAAYwDcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T16:04:57.07Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Product\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Product\\Index.cshtml",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Product\\Index.cshtml",
-              "RelativeToolTip": "Views\\Product\\Index.cshtml",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAYwJQAAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Areas\\Admin\\Views\\Product\\Index.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Admin\\Views\\Product\\Index.cshtml",
+              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Areas\\Admin\\Views\\Product\\Index.cshtml",
+              "RelativeToolTip": "Areas\\Admin\\Views\\Product\\Index.cshtml",
+              "ViewState": "AgIAAMkAAAAAAAAAAAAAAOEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T09:56:37.04Z",
+              "WhenOpened": "2026-01-18T03:21:05.558Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "_LayoutCustomer.cshtml",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Shared\\_LayoutCustomer.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\_LayoutCustomer.cshtml",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Shared\\_LayoutCustomer.cshtml",
-              "RelativeToolTip": "Views\\Shared\\_LayoutCustomer.cshtml",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAADIAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T02:04:14.12Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAGQAAAAAAAAAAAAYwHwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T02:00:13.751Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "_FeaturedProducts.cshtml",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Home\\_FeaturedProducts.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\_FeaturedProducts.cshtml",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Home\\_FeaturedProducts.cshtml",
-              "RelativeToolTip": "Views\\Home\\_FeaturedProducts.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwDkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T02:49:49.97Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "ProductController.cs",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "Controllers\\ProductController.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAkwHAAAAA/AAAAAAAAAA==",
+              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Areas\\Admin\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "Areas\\Admin\\Controllers\\ProductController.cs",
+              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Areas\\Admin\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "Areas\\Admin\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAqwBsAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T16:03:55.377Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "home.css",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\wwwroot\\css\\home.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\home.css",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\wwwroot\\css\\home.css",
-              "RelativeToolTip": "wwwroot\\css\\home.css",
-              "ViewState": "AgIAAOsAAAAAAAAAAAAAAA0BAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-15T02:03:35.172Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ProductDetailVM.cs",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\ViewModels\\ProductDetailVM.cs",
-              "RelativeDocumentMoniker": "ViewModels\\ProductDetailVM.cs",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\ViewModels\\ProductDetailVM.cs",
-              "RelativeToolTip": "ViewModels\\ProductDetailVM.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T16:03:02.492Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "product-detail.css",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\wwwroot\\css\\product-detail.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\product-detail.css",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\wwwroot\\css\\product-detail.css",
-              "RelativeToolTip": "wwwroot\\css\\product-detail.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-15T16:05:42.83Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "site.css",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "wwwroot\\css\\site.css",
-              "ViewState": "AgIAABsAAAAAAAAAAAAYwDwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-15T10:03:42.753Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "Controllers\\HomeController.cs",
-              "ViewState": "AgIAAGgAAAAAAAAAAAAgwFYAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T01:35:58.339Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "HomeVM.cs",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\ViewModels\\HomeVM.cs",
-              "RelativeDocumentMoniker": "ViewModels\\HomeVM.cs",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\ViewModels\\HomeVM.cs",
-              "RelativeToolTip": "ViewModels\\HomeVM.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T01:57:20.922Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T02:03:48.269Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "style.css",
-              "DocumentMoniker": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\wwwroot\\css\\style.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\style.css",
-              "ToolTip": "D:\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\wwwroot\\css\\style.css",
-              "RelativeToolTip": "wwwroot\\css\\style.css",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAAABQAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-15T01:47:41.017Z",
+              "WhenOpened": "2026-01-17T14:25:47.255Z",
               "EditorCaption": ""
             }
           ]

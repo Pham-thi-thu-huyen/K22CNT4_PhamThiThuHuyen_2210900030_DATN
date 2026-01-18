@@ -2186,6 +2186,7 @@ wwwroot\uploads\products\1fdc4f55-50ae-41df-ba6c-a8f8cfc14a63.jpg
 wwwroot\uploads\products\3e1a491a-1399-4332-8734-2706da6a5780.jpg
 wwwroot\uploads\products\3ff516b2-8547-4618-9ebe-b34b3dad4c10.jpg
 wwwroot\uploads\products\4426dfb0-334a-4276-9723-b743a0c956b5.jpg
+wwwroot\uploads\products\488f3fad-e059-42b1-81a0-2c98d4e82e81.jpg
 wwwroot\uploads\products\4b32034b-7050-40a8-b651-8cf0b0c552eb.jpg
 wwwroot\uploads\products\5d0df632-6617-482e-8f27-5a4749a8223c.jpg
 wwwroot\uploads\products\5ec06763-1635-40d9-a999-b5bd67855882.jpg

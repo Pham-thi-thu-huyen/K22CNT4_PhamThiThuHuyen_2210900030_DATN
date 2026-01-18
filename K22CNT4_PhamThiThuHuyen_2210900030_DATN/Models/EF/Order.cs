@@ -17,7 +17,7 @@ public partial class Order
     public DateTime? OrdersDate { get; set; }
 
     [Column("CUSTOMERID")]
-    public long Customerid { get; set; }
+    public long? Customerid { get; set; }   
 
     [Column("TOTAL_MONEY", TypeName = "decimal(18, 2)")]
     public decimal? TotalMoney { get; set; }

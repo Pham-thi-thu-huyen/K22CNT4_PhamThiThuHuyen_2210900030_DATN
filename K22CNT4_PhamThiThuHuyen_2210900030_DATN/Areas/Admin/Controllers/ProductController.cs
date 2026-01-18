@@ -15,16 +15,68 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
         }
 
         // ================= INDEX =================
-        public IActionResult Index()
+        public IActionResult Index(
+      int? categoryId,
+      int? status,
+      List<long> sizeIds,
+      List<long> colorIds,
+      List<long> materialIds
+  )
         {
             var products = _context.Products
-                .Include(x => x.Category)
-                .Include(x => x.ProductImages)
-                .Where(x => x.Isdelete == 0 || x.Isdelete == null)
-                .OrderByDescending(x => x.Id)
-                .ToList();
+                .Include(p => p.Category)
+                .Include(p => p.ProductImages) 
+                .Include(p => p.ProductVariants)
+                    .ThenInclude(v => v.Size)
+                .Include(p => p.ProductVariants)
+                    .ThenInclude(v => v.Color)
+                .Include(p => p.ProductVariants)
+                    .ThenInclude(v => v.Material)
+                .Where(p => p.Isdelete == 0 || p.Isdelete == null)
+                .AsQueryable();
 
-            return View(products);
+            // ===== FILTER CATEGORY =====
+            if (categoryId.HasValue)
+            {
+                products = products.Where(p => p.Categoryid == categoryId);
+            }
+
+            // ===== FILTER STATUS =====
+            if (status.HasValue)
+            {
+                products = products.Where(p => p.Isactive == status);
+            }
+
+            // ===== FILTER SIZE =====
+            if (sizeIds != null && sizeIds.Any())
+            {
+                products = products.Where(p =>
+                    p.ProductVariants.Any(v => sizeIds.Contains(v.Sizeid))
+                );
+            }
+
+            // ===== FILTER COLOR =====
+            if (colorIds != null && colorIds.Any())
+            {
+                products = products.Where(p =>
+                    p.ProductVariants.Any(v => colorIds.Contains(v.Colorid))
+                );
+            }
+
+            // ===== FILTER MATERIAL =====
+            if (materialIds != null && materialIds.Any())
+            {
+                products = products.Where(p =>
+                    p.ProductVariants.Any(v => materialIds.Contains(v.Materialid))
+                );
+            }
+
+            ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.Sizes = _context.Sizes.Where(x => x.Isactive == 1).ToList();
+            ViewBag.Colors = _context.Colors.Where(x => x.Isactive == 1).ToList();
+            ViewBag.Materials = _context.Materials.Where(x => x.Isactive == 1).ToList();
+
+            return View(products.ToList());
         }
 
         // ================= CREATE (GET) =================
@@ -57,8 +109,8 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
             model.Istopsale = Request.Form["Istopsale"] == "1" ? (byte)1 : (byte)0;
             model.Ishome = Request.Form["Ishome"] == "1" ? (byte)1 : (byte)0;
 
-            // ===== GENDER (NẾU CHƯA CHỌN → MẶC ĐỊNH BÉ GÁI) =====
-            if (model.Gender != 1 && model.Gender != 2)
+            // ===== GENDER (1: Bé trai | 2: Bé gái | 3: Unisex – dự phòng) =====
+            if (model.Gender != 1 && model.Gender != 2 && model.Gender != 3)
                 model.Gender = 1;
 
             // ===== GIÁ TRỊ MẶC ĐỊNH =====
@@ -75,7 +127,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
 
             // ===== LƯU PRODUCT =====
             _context.Products.Add(model);
-            _context.SaveChanges(); // PHẢI SAVE TRƯỚC
+            _context.SaveChanges(); // ⚠️ PHẢI SAVE TRƯỚC
 
             // ===== LƯU ẢNH =====
             if (images != null && images.Count > 0)
@@ -120,12 +172,22 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
         public IActionResult Edit(long id)
         {
             var product = _context.Products
-                .Include(x => x.ProductImages)
-                .FirstOrDefault(x => x.Id == id);
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductVariants)
+                .FirstOrDefault(p => p.Id == id && (p.Isdelete == 0 || p.Isdelete == null));
 
-            if (product == null) return NotFound();
+            if (product == null)
+                return NotFound();
 
-            ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.Categories = _context.Categories
+                .Where(c => c.Isdelete == 0 || c.Isdelete == null)
+                .ToList();
+
+            // 🔥 LẤY SIZE ĐANG ACTIVE
+            ViewBag.Sizes = _context.Sizes
+                .Where(s => s.Isactive == 1)
+                .ToList();
+
             return View(product);
         }
 
@@ -134,7 +196,9 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Product model)
         {
-            var product = _context.Products.Find(model.Id);
+            var product = _context.Products
+                .FirstOrDefault(x => x.Id == model.Id && (x.Isdelete == 0 || x.Isdelete == null));
+
             if (product == null) return NotFound();
 
             product.Name = model.Name;
@@ -145,7 +209,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
             product.Price = model.Price;
 
             // 🔹 GENDER
-            product.Gender = (model.Gender == 2) ? 2 : 1;
+            product.Gender = (model.Gender == 2 || model.Gender == 3) ? model.Gender : 1;
 
             // MAP CHECKBOX
             product.Isactive = Request.Form["Isactive"] == "1" ? (byte)1 : (byte)0;
@@ -156,6 +220,9 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Areas.Admin.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index");
+
+
+   
         }
 
         // ================= DELETE (SOFT DELETE) =================

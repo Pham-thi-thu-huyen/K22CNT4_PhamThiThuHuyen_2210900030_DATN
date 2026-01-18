@@ -267,4 +267,25 @@
     line-height: 1.7;
     color: #444;
 }
+.product-policy i {
+    font-size: 26px;
+    color: #2f80ed;
+    margin-bottom: 8px;
+}
+
+.product-policy p {
+    font-size: 14px;
+    margin: 0;
+}
+
+.product-description h3 {
+    border-bottom: 2px solid #000;
+    display: inline-block;
+    padding-bottom: 6px;
+}
+
+.product-content {
+    line-height: 1.8;
+    font-size: 15px;
+}
 

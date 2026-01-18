@@ -1,0 +1,172 @@
+﻿@model IEnumerable<K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.ProductVariant>
+
+@{
+    var product = ViewBag.Product;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- ===== TIÊU ĐỀ ===== -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold mb-0">
+            🧩 Biến thể sản phẩm
+            <span class="text-primary">– @product.Name</span>
+        </h3>
+
+        <a asp-area="Admin"
+           asp-controller="Product"
+           asp-action="Edit"
+           asp-route-id="@product.Id"
+           class="btn btn-outline-secondary">
+            ⬅ Quay lại sản phẩm
+        </a>
+    </div>
+
+    <!-- ===== THÔNG BÁO ===== -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    <!-- ===== FORM THÊM VARIANT ===== -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white fw-bold">
+            ➕ Thêm biến thể
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Create" method="post" class="row g-3">
+                <input type="hidden" name="ProductId" value="@product.Id" />
+
+                <div class="col-md-4">
+                    <label class="form-label">Size</label>
+                    <select name="SizeId" class="form-select" required>
+                        <option value="">-- Chọn size --</option>
+                        @foreach (var s in ViewBag.Sizes)
+                        {
+                            <option value="@s.Sizeid">@s.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Màu</label>
+                    <select name="ColorId" class="form-select" required>
+                        <option value="">-- Chọn màu --</option>
+                        @foreach (var c in ViewBag.Colors)
+                        {
+                            <option value="@c.Colorid">@c.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Chất liệu</label>
+                    <select name="MaterialId" class="form-select" required>
+                        <option value="">-- Chọn chất liệu --</option>
+                        @foreach (var m in ViewBag.Materials)
+                        {
+                            <option value="@m.Materialid">@m.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Giá (₫)</label>
+                    <input type="number" name="Price" class="form-control" value="0" min="0" />
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Số lượng</label>
+                    <input type="number" name="Quantity" class="form-control" value="10" min="0" />
+                </div>
+
+                <div class="col-md-6 d-flex align-items-end">
+                    <button class="btn btn-success w-100 fw-bold">
+                        ➕ Thêm biến thể
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== BẢNG VARIANT ===== -->
+    <div class="card shadow-sm">
+        <div class="card-header fw-bold">
+            📋 Danh sách biến thể
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table table-bordered table-hover mb-0 align-middle text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th>Size</th>
+                        <th>Màu</th>
+                        <th>Chất liệu</th>
+                        <th>Giá</th>
+                        <th>SL</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-muted py-4">
+                                Chưa có biến thể nào
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var v in Model)
+                        {
+                            <tr>
+                                <td>@v.Size?.Name</td>
+                                <td>@v.Color?.Name</td>
+                                <td>@v.Material?.Name</td>
+                                <td>
+                                    <span class="badge bg-info">
+                                        @v.Price?.ToString("N0") đ
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        @v.Quantity
+                                    </span>
+                                </td>
+                                <td>
+                                    <form asp-action="Delete"
+                                          asp-route-id="@v.ProductVariantid"
+                                          asp-route-productId="@product.Id"
+                                          method="post"
+                                          style="display:inline"
+                                          onsubmit="return confirm('Xóa biến thể này?')">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <button type="submit"
+                                                class="btn btn-danger btn-sm">
+                                            🗑 Xóa
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
