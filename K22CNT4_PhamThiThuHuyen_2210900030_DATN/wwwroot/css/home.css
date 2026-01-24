@@ -289,3 +289,55 @@
     font-size: 15px;
 }
 
+
+
+/* ===== XEM CHI TIẾT ===== */
+.home-product-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-image {
+    max-height: 220px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.product-name {
+    font-size: 15px;
+    font-weight: 500;
+    min-height: 42px;
+}
+
+.product-price {
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.btn-detail {
+    margin-top: auto; /* ✅ đẩy nút xuống đáy card */
+    width: 100%;
+    border-radius: 20px;
+}
+
+
+.sale-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+

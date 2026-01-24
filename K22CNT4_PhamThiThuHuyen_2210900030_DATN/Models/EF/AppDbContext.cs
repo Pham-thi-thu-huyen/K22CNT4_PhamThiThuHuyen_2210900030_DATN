@@ -51,6 +51,16 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<TransportMethod>()
+            .ToTable("TRANSPORT_METHOD")
+            .HasKey(x => x.TransportMethodid);
+
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.TransportMethod)
+            .WithMany()
+            .HasForeignKey(o => o.TransportMethodid);
         modelBuilder.Entity<Admin>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__ADMINS__3214EC274C042050");

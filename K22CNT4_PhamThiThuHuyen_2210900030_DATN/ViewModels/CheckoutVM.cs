@@ -14,5 +14,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.ViewModels
         public string Address { get; set; } = string.Empty;
 
         public decimal TotalMoney { get; set; }
+        public long TransportMethodId { get; set; }
+
     }
 }

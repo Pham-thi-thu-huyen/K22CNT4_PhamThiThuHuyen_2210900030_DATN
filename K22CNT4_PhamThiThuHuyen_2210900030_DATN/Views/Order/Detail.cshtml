@@ -1,0 +1,117 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Order
+<style>
+    .order-detail p {
+        margin-bottom: 8px;
+        font-size: 15px;
+    }
+
+    .order-detail .badge {
+        font-size: 13px;
+        padding: 6px 12px;
+        border-radius: 20px;
+    }
+
+    .order-detail-table thead {
+        background: #f8f9fa;
+    }
+
+    .order-detail-table th {
+        font-weight: 600;
+        color: #555;
+    }
+
+    .order-detail-table td {
+        padding: 14px 16px;
+    }
+
+    .order-detail-table tr:hover {
+        background-color: #fdfdfd;
+    }
+</style>
+
+<div class="container my-5 order-detail">
+
+    <h3 class="fw-bold mb-4">
+        🧾 Chi tiết đơn hàng <span class="text-muted">#@Model.Ordersid</span>
+    </h3>
+
+    <!-- Thông tin đơn -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <p><b>Người nhận:</b> @Model.NameReceiver</p>
+                    <p><b>SĐT:</b> @Model.Phone</p>
+                    <p><b>Địa chỉ:</b> @Model.Address</p>
+                </div>
+                <div class="col-md-6">
+                    <p><b>Ngày đặt:</b> @Model.OrdersDate?.ToString("dd/MM/yyyy")</p>
+                    <p><b>Vận chuyển:</b> @(Model.TransportMethod?.Name ?? "—")</p>
+                    <p>
+                        <b>Trạng thái:</b>
+                        @switch (Model.Isactive)
+                        {
+                            case 0:
+                                <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                                ;
+                                break;
+                            case 1:
+                                <span class="badge bg-info">Đã xác nhận</span>
+                                ;
+                                break;
+                            case 2:
+                                <span class="badge bg-primary">Đang giao</span>
+                                ;
+                                break;
+                            case 3:
+                                <span class="badge bg-success">Hoàn thành</span>
+                                ;
+                                break;
+                            case 4:
+                                <span class="badge bg-danger">Đã hủy</span>
+                                ;
+                                break;
+                        }
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Danh sách sản phẩm -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0 order-detail-table">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th class="text-end">Giá</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-end">Tổng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrdersDetails)
+                    {
+                        <tr>
+                            <td>@item.Productvariant.Product.Name</td>
+                            <td class="text-end">@item.Price?.ToString("N0") đ</td>
+                            <td class="text-center">@item.Quantity</td>
+                            <td class="text-end text-danger fw-bold">
+                                @item.Total?.ToString("N0") đ
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-end mt-4">
+        <a asp-action="MyOrders"
+           class="btn btn-outline-secondary px-4">
+            ← Quay lại đơn hàng của tôi
+        </a>
+    </div>
+
+</div>

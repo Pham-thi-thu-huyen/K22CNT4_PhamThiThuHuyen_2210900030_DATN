@@ -2234,10 +2234,9 @@ D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\ne
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\jzhzomro27-{0}-d71ljlx0xg-d71ljlx0xg.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\l0m9u28tp9-{0}-xkp51v21gk-xkp51v21gk.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\zrg8i78ubm-{0}-6j3bm6cpjb-6j3bm6cpjb.gz
-D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\lbc34z9zzj-{0}-vel0sq1sk4-vel0sq1sk4.gz
+D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\lbc34z9zzj-{0}-taph54mqr5-taph54mqr5.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\co24v9i9zu-{0}-biqxyh8k8t-biqxyh8k8t.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\xcnntb5xyo-{0}-jenc7kca7i-jenc7kca7i.gz
-D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\demagbevud-{0}-q1cjwnpumj-q1cjwnpumj.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\vcv7b37eb3-{0}-61n19gt1b8-61n19gt1b8.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\4p67czr38c-{0}-ji4dapyg9s-ji4dapyg9s.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\td85d4knre-{0}-kgkrxe6v73-kgkrxe6v73.gz
@@ -2331,3 +2330,6 @@ D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\ne
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\K22CNT4_PhamThiThuHuyen_2210900030_DATN.pdb
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\K22CNT4_PhamThiThuHuyen_2210900030_DATN.genruntimeconfig.cache
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\ref\K22CNT4_PhamThiThuHuyen_2210900030_DATN.dll
+D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\libman.json
+D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\BCrypt.Net-Next.dll
+D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\demagbevud-{0}-2z51swm8t1-2z51swm8t1.gz

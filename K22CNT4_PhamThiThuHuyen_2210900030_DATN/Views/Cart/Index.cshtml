@@ -4,6 +4,25 @@
     ViewData["Title"] = "Giỏ hàng";
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
+<style>
+    .quantity-group {
+        width: 110px;
+    }
+
+    .quantity-input {
+        height: 30px;
+        font-size: 13px;
+        padding: 0;
+    }
+
+    .quantity-group .btn {
+        width: 28px;
+        height: 30px;
+        padding: 0;
+        font-size: 14px;
+    }
+
+</style>
 
 <div class="container mt-5">
 
@@ -55,16 +74,24 @@
                             <form asp-controller="Cart"
                                   asp-action="Update"
                                   method="post"
-                                  class="d-flex align-items-center">
+                                  class="d-flex align-items-center cart-update-form">
+
                                 <input type="hidden" name="id" value="@item.ProductVariantId" />
-                                <input type="number"
-                                       name="quantity"
-                                       value="@item.Quantity"
-                                       min="1"
-                                       class="form-control w-50 me-2" />
-                                <button class="btn btn-success btn-sm">✔</button>
+
+                                <div class="input-group input-group-sm quantity-group">
+                                    <button type="button" class="btn btn-outline-secondary btn-minus">−</button>
+
+                                    <input type="number"
+                                           name="quantity"
+                                           value="@item.Quantity"
+                                           min="1"
+                                           class="form-control text-center quantity-input" />
+
+                                    <button type="button" class="btn btn-outline-secondary btn-plus">+</button>
+                                </div>
                             </form>
                         </td>
+
 
                         <td>@item.Total.ToString("N0") ₫</td>
 
@@ -99,3 +126,40 @@
     }
 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        document.querySelectorAll('.cart-update-form').forEach(form => {
+
+            const input = form.querySelector('.quantity-input');
+            const btnMinus = form.querySelector('.btn-minus');
+            const btnPlus = form.querySelector('.btn-plus');
+
+            function submitForm() {
+                form.submit();
+            }
+
+            btnMinus.onclick = () => {
+                let val = parseInt(input.value);
+                if (val > 1) {
+                    input.value = val - 1;
+                    submitForm();
+                }
+            };
+
+            btnPlus.onclick = () => {
+                let val = parseInt(input.value);
+                input.value = val + 1;
+                submitForm();
+            };
+
+            // nếu người dùng gõ tay rồi blur
+            input.onchange = () => {
+                if (parseInt(input.value) < 1) input.value = 1;
+                submitForm();
+            };
+        });
+
+    });
+</script>
+

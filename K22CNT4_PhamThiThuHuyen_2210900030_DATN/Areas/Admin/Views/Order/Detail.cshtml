@@ -1,0 +1,107 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Order
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <h4 class="fw-bold mb-3">Chi tiết đơn hàng #@Model.Ordersid</h4>
+
+    <!-- Thông tin khách -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <p><b>Khách hàng:</b> @Model.Customer?.Username</p>
+            <p><b>Người nhận:</b> @Model.NameReceiver</p>
+            <p><b>Địa chỉ:</b> @Model.Address</p>
+            <p><b>SĐT:</b> @Model.Phone</p>
+            <p><b>Ngày đặt:</b> @Model.OrdersDate?.ToString("dd/MM/yyyy")</p>
+        </div>
+        <p>
+        <p><b>Phương thức vận chuyển:</b> Giao hàng tiêu chuẩn</p>
+            <span class="text-primary fw-semibold">
+                @Model.TransportMethod?.Name
+            </span>
+        </p>
+        <p>
+            <b>Trạng thái đơn hàng:</b>
+            @switch (Model.Isactive)
+            {
+                case 0:
+                    <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                    break;
+                case 1:
+                    <span class="badge bg-info">Đã xác nhận</span>
+                    break;
+                case 2:
+                    <span class="badge bg-primary">Đang giao</span>
+                    break;
+                case 3:
+                    <span class="badge bg-success">Hoàn thành</span>
+                    break;
+                case 4:
+                    <span class="badge bg-danger">Đã hủy</span>
+                    break;
+                default:
+                    <span class="badge bg-secondary">Không xác định</span>
+                    break;
+            }
+        </p>
+        <form asp-action="UpdateStatus"
+              asp-route-id="@Model.Ordersid"
+              method="post"
+              class="mb-3">
+
+            <label class="form-label fw-bold">Cập nhật trạng thái</label>
+
+            <div class="d-flex gap-2">
+                <select name="status" class="form-select w-auto">
+                    <option value="0" selected="@(Model.Isactive == 0)">Chờ xử lý</option>
+                    <option value="1" selected="@(Model.Isactive == 1)">Đã xác nhận</option>
+                    <option value="2" selected="@(Model.Isactive == 2)">Đang giao</option>
+                    <option value="3" selected="@(Model.Isactive == 3)">Hoàn thành</option>
+                    <option value="4" selected="@(Model.Isactive == 4)">Đã hủy</option>
+                </select>
+
+                <button type="submit" class="btn btn-primary">
+                    Cập nhật
+                </button>
+            </div>
+        </form>
+
+
+
+    </div>
+
+    <!-- Chi tiết sản phẩm -->
+    <div class="card">
+        <div class="card-body p-0">
+
+            <table class="table table-bordered mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrdersDetails)
+                    {
+                        <tr>
+                            <td>@item.Productvariant.Product.Name</td>
+                            <td>@item.Price?.ToString("N0") đ</td>
+                            <td>@item.Quantity</td>
+                            <td class="text-danger fw-bold">
+                                @item.Total?.ToString("N0") đ
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

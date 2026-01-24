@@ -4,46 +4,54 @@
     @foreach (var p in Model.FeaturedProducts)
     {
         <div class="col-6 col-md-4 col-lg-3">
-            <div class="home-product-card">
+            <div class="home-product-card h-100">
 
                 <!-- Ảnh + link chi tiết -->
                 <a asp-controller="Product"
                    asp-action="Detail"
-                   asp-route-slug="@p.Slug"
+                   asp-route-id="@p.Slug"
                    class="product-link">
 
                     <img src="@(string.IsNullOrEmpty(p.Image)
-                                                 ? "/uploads/products/no-image.png"
-                                                 : p.Image)"
+                                                          ? "/uploads/products/no-image.png"
+                                                          : p.Image)"
                          alt="@p.Name"
-                         class="img-fluid">
+                         class="img-fluid product-image">
                 </a>
 
-                <!-- Tên sản phẩm (click được) -->
+                <!-- Tên sản phẩm -->
                 <h4 class="product-name">
                     <a asp-controller="Product"
                        asp-action="Detail"
-                       asp-route-slug="@p.Slug"
+                       asp-route-id="@p.Slug"
                        class="text-dark text-decoration-none">
                         @p.Name
                     </a>
                 </h4>
 
+                <!-- Giá -->
                 <p class="product-price">
                     @p.Price.ToString("N0") ₫
                 </p>
+
+                <!-- ✅ NÚT XEM CHI TIẾT -->
+                <a asp-controller="Product"
+                   asp-action="Detail"
+                   asp-route-slug="@p.Slug"
+                   class="btn btn-sm btn-outline-primary">
+                    Xem chi tiết
+                </a>
+
+
             </div>
         </div>
     }
 </div>
 
-<!-- ================= PHÂN TRANG (LUÔN HIỆN) ================= -->
+<!-- ================= PHÂN TRANG ================= -->
 <div class="pagination-home mt-4 text-center">
     @{
-        // Nếu chỉ có 1 trang thì vẫn hiển thị "1"
-        int totalPages = Model.FeaturedTotalPages < 1
-        ? 1
-        : Model.FeaturedTotalPages;
+        int totalPages = Model.FeaturedTotalPages < 1 ? 1 : Model.FeaturedTotalPages;
     }
 
     @for (int i = 1; i <= totalPages; i++)

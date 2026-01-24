@@ -32,3 +32,20 @@
         </button>
     </div>
 </form>
+<h5 class="mt-3">Phương thức vận chuyển</h5>
+
+@foreach (var item in ViewBag.TransportMethods)
+{
+    <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               name="TransportMethodId"
+               value="@item.TransportMethodid"
+               required />
+        <label class="form-check-label">
+            @item.Name
+            <small class="text-muted">(@item.Notes)</small>
+        </label>
+    </div>
+}
+

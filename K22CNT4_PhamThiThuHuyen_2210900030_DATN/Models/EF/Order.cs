@@ -42,6 +42,9 @@ public partial class Order
 
     [ForeignKey("Customerid")]
     [InverseProperty("Orders")]
+    public long? TransportMethodid { get; set; }
+    public TransportMethod TransportMethod { get; set; }
+
     public virtual Customer Customer { get; set; } = null!;
 
     [InverseProperty("Orders")]

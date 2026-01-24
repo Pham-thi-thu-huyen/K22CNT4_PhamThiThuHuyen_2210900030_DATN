@@ -11,29 +11,46 @@
         transition: all 0.3s;
     }
 
-    .btn-size.active, .btn-color.active, .btn-material.active {
-        background: #007bff;
-        color: white;
-        border-color: #007bff;
-    }
+        .btn-size.active, .btn-color.active, .btn-material.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
 
     .btn-disabled {
         opacity: 0.6;
         pointer-events: none;
     }
+
+    .input-group.w-50 {
+        width: 140px !important;
+    }
+
+    #quantity-input {
+        height: 32px;
+        font-size: 13px;
+        padding: 2px;
+    }
+
+    #btn-minus,
+    #btn-plus {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        font-size: 14px;
+    }
+
 </style>
 
 <div class="container product-detail mt-5">
     <div class="row">
 
-        <!-- ===== TRÁI ===== -->
+        <!-- TRÁI -->
         <div class="col-md-6">
-
             <img src="@(Model.Images?.FirstOrDefault() ?? "/uploads/no-image.png")"
-                 class="img-fluid mb-3"
-                 alt="@Model.Name">
+                 class="img-fluid mb-3" />
 
-            @if (Model.Images != null && Model.Images.Count > 1)
+            @if (Model.Images?.Count > 1)
             {
                 <div class="d-flex gap-2">
                     @foreach (var img in Model.Images)
@@ -48,7 +65,7 @@
             </div>
         </div>
 
-        <!-- ===== PHẢI ===== -->
+        <!-- PHẢI -->
         <div class="col-md-6">
             <h1>@Model.Name</h1>
 
@@ -58,72 +75,64 @@
 
             <!-- SIZE -->
             <div class="mb-3">
-                <label class="fw-bold">Size:</label><br />
-                @if (ViewBag.Sizes != null)
+                <label class="fw-bold">Size</label><br />
+                @foreach (var size in ViewBag.Sizes as List<Size>)
                 {
-                    foreach (var size in ViewBag.Sizes as List<Size>)
-                    {
-                        <button type="button"
-                                class="btn-size"
-                                data-size-id="@size.Sizeid">
-                            @size.Name
-                        </button>
-                    }
+                    <button type="button" class="btn-size"
+                            data-size-id="@size.Sizeid">
+                        @size.Name
+                    </button>
                 }
             </div>
 
             <!-- COLOR -->
             <div class="mb-3">
-                <label class="fw-bold">Màu sắc:</label><br />
-                @if (ViewBag.Colors != null)
+                <label class="fw-bold">Màu sắc</label><br />
+                @foreach (var color in ViewBag.Colors as List<Color>)
                 {
-                    foreach (var color in ViewBag.Colors as List<Color>)
-                    {
-                        <button type="button"
-                                class="btn-color"
-                                data-color-id="@color.Colorid">
-                            @color.Name
-                        </button>
-                    }
+                    <button type="button" class="btn-color"
+                            data-color-id="@color.Colorid">
+                        @color.Name
+                    </button>
                 }
             </div>
 
             <!-- MATERIAL -->
             <div class="mb-3">
-                <label class="fw-bold">Chất liệu:</label><br />
-                @if (ViewBag.Materials != null)
+                <label class="fw-bold">Chất liệu</label><br />
+                @foreach (var material in ViewBag.Materials as List<Material>)
                 {
-                    foreach (var material in ViewBag.Materials as List<Material>)
-                    {
-                        <button type="button"
-                                class="btn-material"
-                                data-material-id="@material.Materialid">
-                            @material.Name
-                        </button>
-                    }
+                    <button type="button" class="btn-material"
+                            data-material-id="@material.Materialid">
+                        @material.Name
+                    </button>
                 }
             </div>
 
             <!-- QUANTITY -->
             <div class="mb-3">
-                <label>Số lượng:</label>
-                <input type="number"
-                       id="quantity-input"
-                       value="1"
-                       min="1"
-                       class="form-control w-25">
+                <label class="fw-bold">Số lượng</label>
+                <div class="input-group w-50">
+                    <button class="btn btn-outline-secondary" type="button" id="btn-minus">−</button>
+
+                    <input type="number"
+                           id="quantity-input"
+                           class="form-control text-center"
+                           value="1"
+                           min="1" />
+
+                    <button class="btn btn-outline-secondary" type="button" id="btn-plus">+</button>
+                </div>
             </div>
 
             <!-- ACTION -->
             <div class="mt-4 d-flex gap-3">
-                <a href="#"
-                   id="btn-add-to-cart"
+                <a href="#" id="btn-add-to-cart"
                    class="btn btn-outline-danger btn-disabled">
                     Thêm vào giỏ
                 </a>
 
-                <a href="#"
-                   id="btn-buy-now"
+                <a href="#" id="btn-buy-now"
                    class="btn btn-danger btn-disabled">
                     Mua ngay
                 </a>
@@ -132,118 +141,231 @@
     </div>
 </div>
 
+
+<h4 class="mt-4 p-4">Đánh giá sản phẩm</h4>
+
+@if (ViewBag.Reviews != null && ViewBag.Reviews.Count > 0)
+{
+    foreach (var r in ViewBag.Reviews)
+    {
+        <div class="border-bottom mb-3 pb-2 p-4">
+            <strong>@r.Fullname</strong>
+            <span class="text-warning ms-2">
+                @for (int i = 0; i < r.Rating; i++)
+                {
+                    <i class="bi bi-star-fill"></i>
+                }
+            </span>
+
+            <p class="mb-1 p-4">@r.Content</p>
+
+            <small class="text-muted">
+                @r.CreatedDate?.ToString("dd/MM/yyyy")
+            </small>
+
+            @if (!string.IsNullOrEmpty(r.Reply))
+            {
+                <div class="bg-light p-2 mt-2 rounded">
+                    <strong>Phản hồi từ shop:</strong>
+                    <p class="mb-0">@r.Reply</p>
+                </div>
+            }
+        </div>
+    }
+}
+else
+{
+    <p class="text-muted">Chưa có đánh giá nào.</p>
+}
+
+<hr />
+<h4 class="mt-4 p-4">Gửi đánh giá của bạn</h4>
+
+@if (TempData["ReviewError"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ReviewError"]
+    </div>
+}
+
+@if (TempData["ReviewSuccess"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["ReviewSuccess"]
+    </div>
+}
+<form asp-controller="Review" asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="Productid" value="@Model.Id" />
+
+    <div class="mb-2 p-4">
+        <label>Họ tên</label>
+        <input name="Fullname" class="form-control" required />
+    </div>
+
+    <div class="mb-2 p-4">
+        <label>Email</label>
+        <input name="Email" type="email" class="form-control" required />
+    </div>
+
+    <div class="mb-2 p-4">
+        <label>Đánh giá</label>
+        <select name="Rating" class="form-select" required>
+            <option value="">-- Chọn sao --</option>
+            <option value="5">★★★★★</option>
+            <option value="4">★★★★☆</option>
+            <option value="3">★★★☆☆</option>
+            <option value="2">★★☆☆☆</option>
+            <option value="1">★☆☆☆☆</option>
+        </select>
+    </div>
+
+    <div class="mb-2 p-4">
+        <label>Nội dung</label>
+        <textarea name="Content" class="form-control" rows="3" required></textarea>
+    </div>
+
+    <button class="btn btn-success mt-2">
+        Gửi đánh giá
+    </button>
+</form>
+
+
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
-    let selectedSize = null;
-    let selectedColor = null;
-    let selectedMaterial = null;
-    let currentVariantId = null;
+        let selectedSize = null;
+        let selectedColor = null;
+        let selectedMaterial = null;
+        let currentVariantId = null;
 
-    const btnAdd = document.getElementById('btn-add-to-cart');
-    const btnBuy = document.getElementById('btn-buy-now');
+        const btnAdd = document.getElementById('btn-add-to-cart');
+        const btnBuy = document.getElementById('btn-buy-now');
+        const qtyInput = document.getElementById('quantity-input');
 
-    function activate(btns, current) {
-        btns.forEach(b => b.classList.remove('active'));
-        current.classList.add('active');
-    }
-
-    function resetAfter(level) {
-        if (level <= 1) {
-            selectedColor = null;
-            document.querySelectorAll('.btn-color').forEach(b => b.classList.remove('active'));
+        function activate(btns, current) {
+            btns.forEach(b => b.classList.remove('active'));
+            current.classList.add('active');
         }
-        if (level <= 2) {
-            selectedMaterial = null;
-            document.querySelectorAll('.btn-material').forEach(b => b.classList.remove('active'));
+
+        function disableCart() {
+            btnAdd.classList.add('btn-disabled');
+            btnBuy.classList.add('btn-disabled');
         }
-        currentVariantId = null;
-        disableCart();
-    }
 
-    function enableCart() {
-        btnAdd.classList.remove('btn-disabled');
-        btnBuy.classList.remove('btn-disabled');
-    }
-
-    function disableCart() {
-        btnAdd.classList.add('btn-disabled');
-        btnBuy.classList.add('btn-disabled');
-    }
-
-    document.querySelectorAll('.btn-size').forEach(btn => {
-        btn.onclick = function () {
-            activate(document.querySelectorAll('.btn-size'), this);
-            selectedSize = this.dataset.sizeId;
-            resetAfter(1);
+        function enableCart() {
+            btnAdd.classList.remove('btn-disabled');
+            btnBuy.classList.remove('btn-disabled');
         }
-    });
 
-    document.querySelectorAll('.btn-color').forEach(btn => {
-        btn.onclick = function () {
-            activate(document.querySelectorAll('.btn-color'), this);
-            selectedColor = this.dataset.colorId;
-            resetAfter(2);
-        }
-    });
-
-    document.querySelectorAll('.btn-material').forEach(btn => {
-        btn.onclick = function () {
-            activate(document.querySelectorAll('.btn-material'), this);
-            selectedMaterial = this.dataset.materialId;
-            fetchVariant();
-        }
-    });
-
-    function fetchVariant() {
-        if (!selectedSize || !selectedColor || !selectedMaterial) return;
-
-        fetch('@Url.Action("GetProductVariant", "Product")', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body:
-                `productId=@Model.Id` +
-                `&sizeId=${selectedSize}` +
-                `&colorId=${selectedColor}` +
-                `&materialId=${selectedMaterial}`
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (!data.success || !data.variantId) {
-                alert('Không tồn tại biến thể này');
+        // ===== SIZE =====
+        document.querySelectorAll('.btn-size').forEach(btn => {
+            btn.onclick = function () {
+                activate(document.querySelectorAll('.btn-size'), this);
+                selectedSize = this.dataset.sizeId;
+                selectedColor = selectedMaterial = currentVariantId = null;
                 disableCart();
+            }
+        });
+
+        // ===== COLOR =====
+        document.querySelectorAll('.btn-color').forEach(btn => {
+            btn.onclick = function () {
+                activate(document.querySelectorAll('.btn-color'), this);
+                selectedColor = this.dataset.colorId;
+                selectedMaterial = currentVariantId = null;
+                disableCart();
+            }
+        });
+
+        // ===== MATERIAL =====
+        document.querySelectorAll('.btn-material').forEach(btn => {
+            btn.onclick = function () {
+                activate(document.querySelectorAll('.btn-material'), this);
+                selectedMaterial = this.dataset.materialId;
+                fetchVariant();
+            }
+        });
+
+        // ===== QUANTITY + / - =====
+        document.getElementById('btn-minus').onclick = () => {
+            let val = parseInt(qtyInput.value);
+            if (val > 1) qtyInput.value = val - 1;
+        };
+
+        document.getElementById('btn-plus').onclick = () => {
+            let val = parseInt(qtyInput.value);
+            qtyInput.value = val + 1;
+        };
+
+        // ===== FETCH VARIANT =====
+        function fetchVariant() {
+            if (!selectedSize || !selectedColor || !selectedMaterial) return;
+
+            fetch('@Url.Action("GetProductVariant", "Product")', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body:
+                    `productId=@Model.Id&sizeId=${selectedSize}&colorId=${selectedColor}&materialId=${selectedMaterial}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) {
+                    alert('Không tồn tại biến thể');
+                    disableCart();
+                    return;
+                }
+
+                currentVariantId = data.variantId;
+                document.querySelector('.price').innerText =
+                    data.price.toLocaleString('vi-VN') + ' ₫';
+
+                enableCart();
+            });
+        }
+
+        // ===== ADD TO CART (AJAX) =====
+        btnAdd.onclick = e => {
+            e.preventDefault();
+            if (!currentVariantId) {
+                alert('Vui lòng chọn Size, Màu sắc và Chất liệu');
                 return;
             }
 
-            currentVariantId = data.variantId;
+            const qty = qtyInput.value;
 
-            if (data.price !== null) {
-                document.querySelector('.price').innerText =
-                    data.price.toLocaleString('vi-VN') + ' ₫';
+            fetch('/Cart/AddAjax', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `id=${currentVariantId}&quantity=${qty}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) {
+                    alert(data.message);
+                    return;
+                }
+
+                const badge = document.getElementById('cart-count');
+                badge.innerText = data.cartCount;
+                badge.classList.remove('d-none');
+
+                alert('🛒 Đã thêm vào giỏ');
+            });
+        };
+
+        // ===== BUY NOW =====
+        btnBuy.onclick = e => {
+            e.preventDefault();
+            if (!currentVariantId) {
+                alert('Vui lòng chọn Size, Màu sắc và Chất liệu');
+                return;
             }
 
-            enableCart();
-        });
-    }
-
-    function addToCart(buyNow) {
-        if (!currentVariantId) return;
-
-        const qty = document.getElementById('quantity-input').value;
-        let url = `/Cart/Add?id=${currentVariantId}&quantity=${qty}`;
-
-        if (buyNow) url += '&buyNow=true';
-        window.location.href = url;
-    }
-
-    btnAdd.onclick = e => {
-        e.preventDefault();
-        addToCart(false);
-    };
-
-    btnBuy.onclick = e => {
-        e.preventDefault();
-        addToCart(true);
-    };
-});
+            const qty = qtyInput.value;
+            window.location.href = `/Cart/Add?id=${currentVariantId}&quantity=${qty}`;
+        };
+    });
 </script>

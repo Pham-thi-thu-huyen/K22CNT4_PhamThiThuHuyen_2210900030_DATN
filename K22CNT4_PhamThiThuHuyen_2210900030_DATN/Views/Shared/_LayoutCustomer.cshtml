@@ -25,6 +25,30 @@
     <link href="~/css/style.css" rel="stylesheet">
     <link href="~/css/home.css" rel="stylesheet">
     <link href="~/css/product-detail.css" rel="stylesheet" />
+    <style>
+        .cart-icon {
+            width: 42px;
+            height: 42px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            font-size: 11px;
+            line-height: 18px;
+            border-radius: 50%;
+            background: #dc3545;
+            color: white;
+            text-align: center;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -80,6 +104,20 @@
                             <a asp-controller="Product" asp-action="Boys" class="nav-item nav-link">
                                 Thời trang bé trai
                             </a>
+                            <a asp-controller="Order" asp-action="MyOrders" class="nav-item nav-link">
+                                Đơn hàng của tôi
+                            </a>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   asp-controller="Contact"
+                                   asp-action="Index">
+                                    Liên hệ
+                                </a>
+                            </li>
+
+
 
                             <!-- USER -->
                             <div class="nav-item dropdown">
@@ -100,32 +138,39 @@
 
                         <!-- RIGHT ICONS -->
                         <div class="d-flex m-3 me-0">
+                            <!--------------Tìm kiếm----------->
+                            <form asp-controller="Product"
+                                  asp-action="Search"
+                                  method="get"
+                                  class="d-flex align-items-center me-3">
 
-                            <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4">
-                                <i class="fas fa-search text-primary"></i>
-                            </button>
+                                <input type="text"
+                                       name="keyword"
+                                       class="form-control form-control-sm me-2"
+                                       placeholder="Tìm sản phẩm..."
+                                       style="width:180px" />
 
+                                <button type="submit"
+                                        class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white">
+                                    <i class="fas fa-search text-primary"></i>
+                                </button>
+                            </form>
+
+                            <!------------- Giỏ hàng ---------------->
                             @{
                                 var cartCount = Context.Session.GetInt32("CART_COUNT") ?? 0;
                             }
 
-                            <a asp-controller="Cart"
-                               asp-action="Index"
-                               class="position-relative me-4 my-auto">
+                            <a href="/Cart" class="cart-icon position-relative">
+                                <i class="fas fa-shopping-cart"></i>
 
-                                <i class="fa fa-shopping-bag fa-2x"></i>
-
-                                @if (cartCount > 0)
-                                {
-                                    <span class="position-absolute bg-danger rounded-circle
-                  d-flex align-items-center justify-content-center text-white px-1"
-                                          style="top:-5px; left:15px; height:20px; min-width:20px; font-size:12px;">
-                                        @cartCount
-                                    </span>
-                                }
+                                <span id="cart-count"
+                                      class="cart-badge @(cartCount == 0 ? "d-none" : "")">
+                                    @cartCount
+                                </span>
                             </a>
 
-
+                            
                         </div>
                     </div>
                 </nav>

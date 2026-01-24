@@ -8,6 +8,12 @@
                     <p>Trang quản trị</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">
+                    <i class="fas fa-users"></i>
+                    <span>Người dùng</span>
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="nav-link">
@@ -42,6 +48,19 @@
                     <p>Color</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a asp-area="Admin" asp-controller="Review" asp-action="Index" class="nav-link">
+                    <i class="nav-icon fas fa-box"></i>
+                    <p>Review</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Đơn hàng</span>
+                </a>
+            </li>
+
 
 
 

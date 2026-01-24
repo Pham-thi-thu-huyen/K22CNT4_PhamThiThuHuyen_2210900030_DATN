@@ -1,0 +1,114 @@
+﻿@model IEnumerable<K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Review>
+
+@{
+    ViewData["Title"] = "Quản lý đánh giá";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Quản lý đánh giá</h2>
+
+<table class="table table-bordered table-hover align-middle">
+    <thead class="table-light">
+        <tr>
+            <th>Sản phẩm</th>
+            <th>Khách</th>
+            <th>Nội dung</th>
+            <th>Sao</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product?.Name</td>
+                <td>
+                    <strong>@item.Fullname</strong><br />
+                    <small>@item.Email</small>
+                </td>
+                <td>
+                    @item.Content
+                    @if (!string.IsNullOrEmpty(item.Reply))
+                    {
+                        <div class="mt-2 p-2 bg-light rounded">
+                            <strong>Phản hồi:</strong> @item.Reply
+                        </div>
+                    }
+                </td>
+                <td>@item.Rating ⭐</td>
+                <td>
+                    @if (item.IsApproved == 1)
+                    {
+                        <span class="badge bg-success">Đã duyệt</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">Chờ duyệt</span>
+                    }
+                </td>
+                <td style="width:260px">
+
+                    <!-- DUYỆT / HỦY -->
+                    @if (item.IsApproved == 1)
+                    {
+                        <a asp-area="Admin"
+                           asp-controller="Review"
+                           asp-action="UnApprove"
+                           asp-route-id="@item.Reviewid"
+                           class="btn btn-sm btn-secondary mb-1">
+                            Hủy duyệt
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-area="Admin"
+                           asp-controller="Review"
+                           asp-action="Approve"
+                           asp-route-id="@item.Reviewid"
+                           class="btn btn-sm btn-success mb-1">
+                            Duyệt
+                        </a>
+                    }
+
+                    <!-- TRẢ LỜI -->
+                    <form asp-area="Admin"
+                          asp-controller="Review"
+                          asp-action="Reply"
+                          method="post"
+                          class="mt-1">
+
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.Reviewid" />
+
+                        <textarea name="reply"
+                              class="form-control form-control-sm mb-1"
+                              placeholder="Phản hồi..."
+                              required></textarea>
+
+                        <button type="submit" class="btn btn-sm btn-primary w-100">
+                            Trả lời
+                        </button>
+                    </form>
+
+                    <!-- XÓA -->
+                    <form asp-area="Admin"
+                          asp-controller="Review"
+                          asp-action="Delete"
+                          method="post"
+                          class="mt-1"
+                          onsubmit="return confirm('Xóa đánh giá này?')">
+
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.Reviewid" />
+
+                        <button type="submit" class="btn btn-sm btn-danger w-100">
+                            Xóa
+                        </button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

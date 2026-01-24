@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "X6XNL81atAs=",
+  "dgSpecHash": "F7o0AF/itCs=",
   "success": true,
   "projectFilePath": "D:\\Đồ án tốt nghiệp\\K22CNT4_PhamThiThuHuyen_2210900030_DATN\\K22CNT4_PhamThiThuHuyen_2210900030_DATN.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\huyen\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\huyen\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
+    "C:\\Users\\huyen\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\huyen\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\huyen\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\huyen\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

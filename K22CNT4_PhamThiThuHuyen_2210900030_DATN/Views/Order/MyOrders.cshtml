@@ -1,0 +1,105 @@
+﻿@model IEnumerable<K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Order>
+<style>
+    .my-order-table thead {
+        background: #f8f9fa;
+    }
+
+    .my-order-table th {
+        font-weight: 600;
+        color: #555;
+        white-space: nowrap;
+    }
+
+    .my-order-table td {
+        padding: 14px 16px;
+        vertical-align: middle;
+    }
+
+    .my-order-table tr:hover {
+        background-color: #fdfdfd;
+    }
+
+    .my-order-table .badge {
+        font-size: 13px;
+        padding: 6px 10px;
+        border-radius: 20px;
+    }
+
+    .my-order-table .btn-outline-success {
+        border-radius: 20px;
+        font-weight: 500;
+    }
+</style>
+
+<div class="container my-5">
+    <h3 class="mb-4 fw-bold">📦 Đơn hàng của tôi</h3>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0 my-order-table">
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Vận chuyển</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var o in Model)
+                    {
+                        <tr>
+                            <td class="fw-semibold">#@o.Ordersid</td>
+
+                            <td>@o.OrdersDate?.ToString("dd/MM/yyyy")</td>
+
+                            <td class="text-danger fw-bold">
+                                @o.TotalMoney?.ToString("N0") đ
+                            </td>
+
+                            <td>
+                                @(o.TransportMethod?.Name ?? "—")
+                            </td>
+
+                            <td>
+                                @switch (o.Isactive)
+                                {
+                                    case 0:
+                                        <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                                        ;
+                                        break;
+                                    case 1:
+                                        <span class="badge bg-info">Đã xác nhận</span>
+                                        ;
+                                        break;
+                                    case 2:
+                                        <span class="badge bg-primary">Đang giao</span>
+                                        ;
+                                        break;
+                                    case 3:
+                                        <span class="badge bg-success">Hoàn thành</span>
+                                        ;
+                                        break;
+                                    case 4:
+                                        <span class="badge bg-danger">Đã hủy</span>
+                                        ;
+                                        break;
+                                }
+                            </td>
+
+                            <td class="text-end">
+                                <a asp-action="Detail"
+                                   asp-route-id="@o.Ordersid"
+                                   class="btn btn-outline-success btn-sm px-3">
+                                    Chi tiết
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

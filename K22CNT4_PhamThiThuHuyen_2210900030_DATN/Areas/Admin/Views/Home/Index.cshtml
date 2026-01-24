@@ -1,11 +1,89 @@
-﻿@{
-    ViewData["Title"] = "Trang quản trị";
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<section class="content">
-    <div class="container-fluid">
-        <h2>Admin Home</h2>
-        <p>Chào mừng đến trang quản trị!</p>
+<style>
+    .dash-card {
+        color: #fff;
+        border-radius: 12px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 6px 20px rgba(0,0,0,.15);
+        transition: transform .2s;
+    }
+
+        .dash-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .dash-icon {
+        font-size: 48px;
+        opacity: .9;
+    }
+
+    .bg-blue {
+        background: linear-gradient(135deg, #1e90ff, #0066ff);
+    }
+
+    .bg-green {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+    }
+
+    .bg-orange {
+        background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+
+    .bg-red {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+</style>
+
+<h3 class="mb-4">📊 Dashboard quản trị</h3>
+
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="dash-card bg-blue">
+            <div>
+                <h6>Sản phẩm</h6>
+                <h2>@ViewBag.TotalProducts</h2>
+            </div>
+            <div class="dash-icon">📦</div>
+        </div>
     </div>
-</section>
+
+    <div class="col-md-3">
+        <div class="dash-card bg-green">
+            <div>
+                <h6>Khách hàng</h6>
+                <h2>@ViewBag.TotalCustomers</h2>
+            </div>
+            <div class="dash-icon">👤</div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dash-card bg-orange">
+            <div>
+                <h6>Đơn hàng</h6>
+                <h2>@ViewBag.TotalOrders</h2>
+            </div>
+            <div class="dash-icon">🧾</div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dash-card bg-red">
+            <div>
+                <h6>Đánh giá</h6>
+                <h2>@ViewBag.TotalReviews</h2>
+            </div>
+            <div class="dash-icon">⭐</div>
+        </div>
+    </div>
+
+</div>

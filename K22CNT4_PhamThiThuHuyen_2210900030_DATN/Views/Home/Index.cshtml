@@ -57,26 +57,16 @@
     </div>
 </section>
 
-<!-- ================= SẢN PHẨM SALE (CHƯA AJAX) ================= -->
-<section class="home-product-section bg-light">
+
+<!-- ================= SẢN PHẨM ĐANG SALE ================= -->
+<section class="home-product-section">
     <div class="container">
         <h2 class="home-title">Sản phẩm đang sale</h2>
 
-        <div class="row g-4">
-            @foreach (var p in Model.SaleProducts)
-            {
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="home-product-card sale">
-                        <span class="sale-badge">SALE</span>
-                        <img src="@(string.IsNullOrEmpty(p.Image) ? "/uploads/products/no-image.png" : p.Image)" />
-                        <h4 class="product-name">@p.Name</h4>
-                        <p class="product-price">@p.Price.ToString("N0") ₫</p>
-                    </div>
-                </div>
-            }
-        </div>
+        @await Html.PartialAsync("_SaleProducts", Model.SaleProducts)
     </div>
 </section>
+n>
 
 <!-- ================= TIN TỨC (UI) ================= -->
 <section class="home-news-section">

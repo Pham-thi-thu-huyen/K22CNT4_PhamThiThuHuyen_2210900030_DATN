@@ -5,6 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 
 
+
     var selectedCategory = Context.Request.Query["categoryId"].ToString();
     var selectedStatus = Context.Request.Query["status"].ToString();
 
@@ -184,24 +185,29 @@
             <div class="col-md-6">
 
                 <!-- DANH MỤC -->
-                    <select name="categoryId" class="form-select">
-                        <option value="">Tất cả</option>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Danh mục</label>
+                        <select name="categoryId" class="form-select">
+                            <option value="">Tất cả</option>
 
-                        @foreach (var cat in ViewBag.Categories)
-                        {
-                            if (Context.Request.Query["categoryId"] == cat.Id.ToString())
+                            @foreach (var cat in ViewBag.Categories)
                             {
-                                <option value="@cat.Id" selected="selected">@cat.Name</option>
+                                if (Context.Request.Query["categoryId"] == cat.Id.ToString())
+                                {
+                                    <option value="@cat.Id" selected="selected">@cat.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@cat.Id">@cat.Name</option>
+                                }
                             }
-                            else
-                            {
-                                <option value="@cat.Id">@cat.Name</option>
-                            }
-                        }
-                    </select>
+                        </select>
+                    </div>
 
 
                 <!-- TRẠNG THÁI -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="margin-right : 10px">Trạng thái</label>
                     <select name="status" class="form-select">
                         <option value="">Tất cả</option>
 
@@ -223,6 +229,7 @@
                             <option value="0">Ẩn</option>
                         }
                     </select>
+                    </div>
 
         <button type="submit" class="btn btn-primary w-100">
             🔍 Lọc sản phẩm
