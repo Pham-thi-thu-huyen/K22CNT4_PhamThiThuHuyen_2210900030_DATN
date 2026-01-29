@@ -68,30 +68,38 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Login(LoginVM model)
+        public IActionResult Login(string username, string password)
         {
-            if (!ModelState.IsValid)
-                return View(model);
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                ViewBag.Error = "Vui lòng nhập đầy đủ thông tin";
+                return View();
+            }
 
-            string passwordHash = HashPassword(model.Password);
+            // 🔐 HASH PASSWORD NHẬP VÀO
+            var hashedPassword = HashPassword(password);
 
             var customer = _context.Customers.FirstOrDefault(x =>
-                x.Username == model.Username &&
-                x.Password == passwordHash &&
-                x.UserType == "CUSTOMER" &&
-                (x.Isdelete == 0 || x.Isdelete == null));
+                x.Username == username &&
+                x.Password == hashedPassword &&
+                x.Isdelete != 1);
 
             if (customer == null)
             {
-                ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
-                return View(model);
+                ViewBag.Error = "Sai tài khoản hoặc mật khẩu";
+                return View();
             }
 
-            // ===== SESSION USER =====
-            HttpContext.Session.SetString("CUSTOMER_ID", customer.Customerid.ToString());
-            HttpContext.Session.SetString("CUSTOMER_USERNAME", customer.Username);
-            HttpContext.Session.SetString("USER_TYPE", customer.UserType);
+            // ✅ SET SESSION
+            HttpContext.Session.SetInt32("CUSTOMER_ID", (int)customer.Customerid);
+            HttpContext.Session.SetString("USERNAME", customer.Username);
+            HttpContext.Session.SetString("AVATAR",
+                 string.IsNullOrEmpty(customer.Avatar)
+                     ? "/wwwroot/uploads/avatars"
+                     : customer.Avatar
+             );
+
+
 
             return RedirectToAction("Index", "Home");
         }

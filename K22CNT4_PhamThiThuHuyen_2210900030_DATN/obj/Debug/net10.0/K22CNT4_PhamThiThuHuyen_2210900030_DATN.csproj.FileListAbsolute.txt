@@ -46,6 +46,7 @@ D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\ne
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\BuildHost-netcore\zh-Hant\System.CommandLine.resources.dll
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\appsettings.Development.json
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\appsettings.json
+D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\libman.json
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\K22CNT4_PhamThiThuHuyen_2210900030_DATN.staticwebassets.runtime.json
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\K22CNT4_PhamThiThuHuyen_2210900030_DATN.staticwebassets.endpoints.json
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\K22CNT4_PhamThiThuHuyen_2210900030_DATN.exe
@@ -55,6 +56,7 @@ D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\ne
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\K22CNT4_PhamThiThuHuyen_2210900030_DATN.pdb
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\Azure.Core.dll
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\Azure.Identity.dll
+D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\BCrypt.Net-Next.dll
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\Humanizer.dll
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\Microsoft.AspNetCore.Razor.Language.dll
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -2237,6 +2239,7 @@ D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\ne
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\lbc34z9zzj-{0}-taph54mqr5-taph54mqr5.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\co24v9i9zu-{0}-biqxyh8k8t-biqxyh8k8t.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\xcnntb5xyo-{0}-jenc7kca7i-jenc7kca7i.gz
+D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\demagbevud-{0}-2z51swm8t1-2z51swm8t1.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\vcv7b37eb3-{0}-61n19gt1b8-61n19gt1b8.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\4p67czr38c-{0}-ji4dapyg9s-ji4dapyg9s.gz
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\td85d4knre-{0}-kgkrxe6v73-kgkrxe6v73.gz
@@ -2330,6 +2333,3 @@ D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\ne
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\K22CNT4_PhamThiThuHuyen_2210900030_DATN.pdb
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\K22CNT4_PhamThiThuHuyen_2210900030_DATN.genruntimeconfig.cache
 D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\ref\K22CNT4_PhamThiThuHuyen_2210900030_DATN.dll
-D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\libman.json
-D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\bin\Debug\net10.0\BCrypt.Net-Next.dll
-D:\Đồ án tốt nghiệp\K22CNT4_PhamThiThuHuyen_2210900030_DATN\obj\Debug\net10.0\compressed\demagbevud-{0}-2z51swm8t1-2z51swm8t1.gz

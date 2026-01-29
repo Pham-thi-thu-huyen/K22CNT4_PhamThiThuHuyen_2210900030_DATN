@@ -5,16 +5,16 @@
     <title>@ViewBag.Title</title>
     <meta charset="utf-8">
 
-    <!-- Google Web Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
+    <!-- Icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
+    <!-- Libraries -->
     <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
     <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
@@ -25,6 +25,7 @@
     <link href="~/css/style.css" rel="stylesheet">
     <link href="~/css/home.css" rel="stylesheet">
     <link href="~/css/product-detail.css" rel="stylesheet" />
+
     <style>
         .cart-icon {
             width: 42px;
@@ -47,16 +48,16 @@
             color: white;
             text-align: center;
         }
-
     </style>
 </head>
 
 <body>
     <div>
 
-        <!-- Navbar -->
+        <!-- NAVBAR -->
         <div class="container-fluid fixed-top">
 
+            <!-- TOP BAR -->
             <div class="container topbar bg-primary d-none d-lg-block">
                 <div class="d-flex justify-content-between">
                     <div class="top-info ps-2">
@@ -92,86 +93,95 @@
 
                         <!-- MENU -->
                         <div class="navbar-nav mx-auto">
-
-                            <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">
-                                Trang chủ
-                            </a>
-
-                            <a asp-controller="Product" asp-action="Girls" class="nav-item nav-link">
-                                Thời trang bé gái
-                            </a>
-
-                            <a asp-controller="Product" asp-action="Boys" class="nav-item nav-link">
-                                Thời trang bé trai
-                            </a>
-                            <a asp-controller="Order" asp-action="MyOrders" class="nav-item nav-link">
-                                Đơn hàng của tôi
-                            </a>
-
-
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="Contact"
-                                   asp-action="Index">
-                                    Liên hệ
-                                </a>
-                            </li>
-
-
+                            <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">Trang chủ</a>
+                            <a asp-controller="Product" asp-action="Girls" class="nav-item nav-link">Thời trang bé gái</a>
+                            <a asp-controller="Product" asp-action="Boys" class="nav-item nav-link">Thời trang bé trai</a>
+                            <a asp-controller="Order" asp-action="MyOrders" class="nav-item nav-link">Đơn hàng của tôi</a>
+                            <a asp-controller="Contact" asp-action="Index" class="nav-item nav-link">Liên hệ</a>
 
                             <!-- USER -->
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                    <i class="fas fa-user"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a asp-controller="Account" asp-action="Login" class="dropdown-item">
-                                        Đăng nhập
+                            @{
+                                var username = Context.Session.GetString("USERNAME");
+                            }
+                            @if (!string.IsNullOrEmpty(username))
+                            {
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle d-flex align-items-center"
+                                       data-bs-toggle="dropdown">
+                                        <img src="~/uploads/avatars/default-avatar.png"
+                                             class="rounded-circle me-2"
+                                             width="27" height="27"
+                                             style="object-fit:cover" />
+
                                     </a>
-                                    <a asp-controller="Account" asp-action="Register" class="dropdown-item">
-                                        Đăng ký
-                                    </a>
+
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <span class="dropdown-item-text fw-bold">
+                                            👋 @username
+                                        </span>
+
+                                        <div class="dropdown-divider"></div>
+
+                                        <a asp-controller="Profile" asp-action="Index"
+                                           class="dropdown-item">
+                                            👤 Trang cá nhân
+                                        </a>
+
+                                        <div class="dropdown-divider"></div>
+
+                                        <a asp-controller="Account" asp-action="Logout"
+                                           class="dropdown-item text-danger">
+                                            🚪 Đăng xuất
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                            }
+                            else
+                            {
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle"
+                                       data-bs-toggle="dropdown">
+                                        <i class="fas fa-user fs-4"></i>
+                                    </a>
 
-                        </div>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a asp-controller="Account" asp-action="Login"
+                                           class="dropdown-item">Đăng nhập</a>
+                                        <a asp-controller="Account" asp-action="Register"
+                                           class="dropdown-item">Đăng ký</a>
+                                    </div>
+                                </div>
+                            }
 
+                        <!-- END MENU -->
                         <!-- RIGHT ICONS -->
                         <div class="d-flex m-3 me-0">
-                            <!--------------Tìm kiếm----------->
-                            <form asp-controller="Product"
-                                  asp-action="Search"
-                                  method="get"
-                                  class="d-flex align-items-center me-3">
 
-                                <input type="text"
-                                       name="keyword"
+                            <!-- SEARCH -->
+                            <form asp-controller="Product" asp-action="Search"
+                                  method="get" class="d-flex align-items-center me-3">
+                                <input type="text" name="keyword"
                                        class="form-control form-control-sm me-2"
-                                       placeholder="Tìm sản phẩm..."
-                                       style="width:180px" />
-
+                                       placeholder="Tìm sản phẩm..." style="width:180px" />
                                 <button type="submit"
                                         class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white">
                                     <i class="fas fa-search text-primary"></i>
                                 </button>
                             </form>
 
-                            <!------------- Giỏ hàng ---------------->
+                            <!-- CART -->
                             @{
                                 var cartCount = Context.Session.GetInt32("CART_COUNT") ?? 0;
                             }
 
                             <a href="/Cart" class="cart-icon position-relative">
                                 <i class="fas fa-shopping-cart"></i>
-
-                                <span id="cart-count"
-                                      class="cart-badge @(cartCount == 0 ? "d-none" : "")">
+                                <span class="cart-badge @(cartCount == 0 ? "d-none" : "")">
                                     @cartCount
                                 </span>
                             </a>
-
-                            
                         </div>
+
                     </div>
                 </nav>
             </div>

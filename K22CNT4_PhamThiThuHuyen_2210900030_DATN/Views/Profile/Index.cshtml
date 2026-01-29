@@ -1,0 +1,92 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Customer
+@{
+    ViewData["Title"] = "Trang cá nhân";
+}
+@if (Model == null)
+{
+    <div class="container mt-5">
+        <div class="alert alert-warning">
+            Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.
+        </div>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="row">
+
+            <!-- SIDEBAR -->
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+
+                        @{
+                            var avatarUrl = string.IsNullOrEmpty(Model.Avatar)
+                            ? Url.Content("~/uploads/avatars/default-avatar.png")
+                            : Model.Avatar;
+                        }
+
+                        <img src="@avatarUrl"
+                             class="rounded-circle mb-3"
+                             width="120"
+                             height="120"
+                             style="object-fit:cover; border:1px solid #ddd;" />
+
+                        <h6 class="fw-bold">@Model.Username</h6>
+                    </div>
+
+
+                    <div class="list-group list-group-flush">
+                        <a class="list-group-item list-group-item-action active">
+                            👤 Thông tin cá nhân
+                        </a>
+                        <a asp-controller="Order" asp-action="MyOrders"
+                           class="list-group-item list-group-item-action">
+                            📦 Đơn hàng của tôi
+                        </a>
+                        <a asp-action="Edit"
+                           class="list-group-item list-group-item-action">
+                            ✏️ Chỉnh sửa thông tin
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="col-md-9">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="mb-4">👤 Thông tin tài khoản</h5>
+
+                        <div class="row mb-2">
+                            <div class="col-sm-4 fw-bold">Tên đăng nhập:</div>
+                            <div class="col-sm-8">@Model.Username</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-sm-4 fw-bold">Email:</div>
+                            <div class="col-sm-8">@Model.Email</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-sm-4 fw-bold">Số điện thoại:</div>
+                            <div class="col-sm-8">@Model.Phone</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-sm-4 fw-bold">Địa chỉ:</div>
+                            <div class="col-sm-8">@Model.Address</div>
+                        </div>
+
+                        <div class="mt-4">
+                            <a asp-action="Edit" class="btn btn-primary">
+                                ✏️ Chỉnh sửa thông tin
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

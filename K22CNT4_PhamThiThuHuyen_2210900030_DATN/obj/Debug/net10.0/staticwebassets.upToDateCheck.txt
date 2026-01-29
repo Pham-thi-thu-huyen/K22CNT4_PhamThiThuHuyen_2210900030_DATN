@@ -2181,6 +2181,8 @@ wwwroot\scss\bootstrap\scss\_variables.scss
 wwwroot\shop-detail.html
 wwwroot\shop.html
 wwwroot\testimonial.html
+wwwroot\uploads\avatars\avt_1.jpg
+wwwroot\uploads\avatars\default-avatar.png
 wwwroot\uploads\products\080b59a4-3041-418f-9913-0dd9aae1ede3.jpg
 wwwroot\uploads\products\0d877486-5355-4932-8203-2e681d6eade7.jpg
 wwwroot\uploads\products\0e4e3fd7-b933-47cb-9276-2c0bbc89adf3.jpg

@@ -1,0 +1,96 @@
+﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF.Customer
+
+@{
+    ViewData["Title"] = "Chỉnh sửa thông tin cá nhân";
+}
+
+<div class="container mt-4">
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-md-3">
+            <div class="list-group shadow-sm">
+                <a asp-action="Index"
+                   class="list-group-item list-group-item-action">
+                    👤 Thông tin cá nhân
+                </a>
+                <a class="list-group-item list-group-item-action active">
+                    ✏️ Chỉnh sửa thông tin
+                </a>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="col-md-9">
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h5 class="mb-4">✏️ Chỉnh sửa thông tin</h5>
+
+                    <form asp-action="Edit"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="Customerid" />
+
+                        <!-- AVATAR -->
+                        <div class="mb-3">
+                            <label class="form-label">Ảnh đại diện</label><br />
+
+                            <img src="@(string.IsNullOrEmpty(Model.Avatar)
+                                                                         ? "/wwwroot/uploads/avatars"
+                                                                         : Model.Avatar)"
+                                 class="rounded-circle mb-2"
+                                 width="100" height="100" />
+
+                            <input type="file"
+                                   name="avatarFile"
+                                   class="form-control mt-2" />
+                        </div>
+
+                        <hr />
+
+                        <div class="mb-3">
+                            <label class="form-label">Tên đăng nhập</label>
+                            <input asp-for="Username"
+                                   class="form-control"
+                                   readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input asp-for="Email"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Số điện thoại</label>
+                            <input asp-for="Phone"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Địa chỉ</label>
+                            <input asp-for="Address"
+                                   class="form-control" />
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary">
+                            💾 Lưu thay đổi
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-secondary ms-2">
+                            ⬅ Quay lại
+                        </a>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

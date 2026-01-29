@@ -185,7 +185,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
             HttpContext.Session.SetInt32("CART_COUNT", 0);
             return RedirectToAction("Index");
         }
-        // ================== GET: CHECKOUT ==================
+        // ================== GET: CHECKOUT =================
         public IActionResult Checkout()
         {
             var userId = HttpContext.Session.GetString("CUSTOMER_ID");
@@ -196,8 +196,13 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
             if (!cart.Any())
                 return RedirectToAction("Index");
 
-            // 🔥 LẤY VẬN CHUYỂN ĐANG HOẠT ĐỘNG
+            // 🔥 VẬN CHUYỂN
             ViewBag.TransportMethods = _context.TransportMethods
+                .Where(x => x.Isactive == 1 && (x.Isdelete == 0 || x.Isdelete == null))
+                .ToList();
+
+            // 🔥 PHƯƠNG THỨC THANH TOÁN
+            ViewBag.PayMethods = _context.PayMethods
                 .Where(x => x.Isactive == 1 && (x.Isdelete == 0 || x.Isdelete == null))
                 .ToList();
 
@@ -217,33 +222,65 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
             if (!cart.Any())
                 return RedirectToAction("Index");
 
+            // Validate chọn phương thức
+            if (model.TransportMethodId == 0 || model.PayMethodId == 0)
+            {
+                ViewBag.TransportMethods = _context.TransportMethods
+                    .Where(x => x.Isactive == 1 && (x.Isdelete == 0 || x.Isdelete == null))
+                    .ToList();
+
+                ViewBag.PayMethods = _context.PayMethods
+                    .Where(x => x.Isactive == 1 && (x.Isdelete == 0 || x.Isdelete == null))
+                    .ToList();
+
+                ModelState.AddModelError("", "Vui lòng chọn vận chuyển và phương thức thanh toán");
+                model.TotalMoney = cart.Sum(x => x.Total);
+                return View(model);
+            }
+
+            // ================== TÍNH TIỀN ==================
+            // Tổng tiền sản phẩm
+            var productTotal = cart.Sum(x => x.Total);
+
+            // Lấy phí ship theo phương thức vận chuyển
+            var transport = _context.TransportMethods
+                .FirstOrDefault(x => x.TransportMethodid == model.TransportMethodId);
+
+            int shipFee = transport?.Price ?? 0;
+
+            // Tổng tiền cuối = sản phẩm + ship
+            var totalMoney = productTotal + shipFee;
+
+            // ================== TẠO ORDER ==================
             var order = new Order
             {
                 OrdersDate = DateTime.Now,
                 Customerid = long.Parse(HttpContext.Session.GetString("CUSTOMER_ID")!),
-                TotalMoney = cart.Sum(x => x.Total),
+
                 NameReceiver = model.NameReceiver,
                 Phone = model.Phone,
                 Address = model.Address,
 
-                // 🔥 LƯU VẬN CHUYỂN
                 TransportMethodid = model.TransportMethodId,
+                PayMethodId = model.PayMethodId,
+
+                // 🔥 TỔNG TIỀN ĐÃ CỘNG SHIP
+                TotalMoney = totalMoney,
 
                 Isdelete = 0,
-                Isactive = 0 // 0 = Chờ xử lý
+                Isactive = 0 // 0 = chờ xử lý
             };
-
 
             _context.Orders.Add(order);
             _context.SaveChanges();
-            order.Ordersid = _context.Orders.Max(s => s.Ordersid);
-            // ===== LƯU ORDER DETAILS =====
+
+            // ================== LƯU ORDER DETAILS ==================
             foreach (var item in cart)
             {
                 _context.OrdersDetails.Add(new OrdersDetail
                 {
                     Ordersid = order.Ordersid,
-                    Productvariantid = item.ProductVariantId, 
+                    Productvariantid = item.ProductVariantId,
                     Quantity = item.Quantity,
                     Price = item.Price,
                     Total = item.Price * item.Quantity
@@ -252,12 +289,13 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
 
             _context.SaveChanges();
 
-            // reset cart
+            // ================== RESET GIỎ ==================
             HttpContext.Session.Remove(CART_KEY);
             HttpContext.Session.SetInt32("CART_COUNT", 0);
 
             return RedirectToAction("Success");
         }
+
 
         // ================== SUCCESS ==================
         public IActionResult Success()

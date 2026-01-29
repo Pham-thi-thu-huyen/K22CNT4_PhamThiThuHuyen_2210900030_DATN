@@ -42,6 +42,9 @@ public partial class Order
 
     [ForeignKey("Customerid")]
     [InverseProperty("Orders")]
+    public long? PayMethodId { get; set; }
+    public PayMethod PayMethod { get; set; }
+
     public long? TransportMethodid { get; set; }
     public TransportMethod TransportMethod { get; set; }
 

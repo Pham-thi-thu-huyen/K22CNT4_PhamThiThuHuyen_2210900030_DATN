@@ -11,7 +11,7 @@ public partial class PayMethod
 {
     [Key]
     [Column("ID")]
-    public long PayMethodid { get; set; }
+    public long PayMethodId { get; set; }
 
     [Column("NAME")]
     [StringLength(250)]

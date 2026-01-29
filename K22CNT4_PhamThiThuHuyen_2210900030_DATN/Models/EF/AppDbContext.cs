@@ -144,7 +144,7 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<PayMethod>(entity =>
         {
-            entity.HasKey(e => e.PayMethodid).HasName("PK__PAY_METH__55A067C94A097C18");
+            entity.HasKey(e => e.PayMethodId).HasName("PK__PAY_METH__55A067C94A097C18");
 
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Isactive).HasDefaultValue((byte)1);

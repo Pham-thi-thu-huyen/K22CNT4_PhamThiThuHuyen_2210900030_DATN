@@ -1,6 +1,10 @@
 ﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.ViewModels.ProductDetailVM
 @using K22CNT4_PhamThiThuHuyen_2210900030_DATN.Models.EF
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+
 <style>
     .btn-size, .btn-color, .btn-material {
         margin: 5px;
@@ -39,6 +43,39 @@
         padding: 0;
         font-size: 14px;
     }
+    /* Ảnh lớn */
+    .mainSwiper {
+        width: 100%;
+        height: 520px;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .main-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Thumbnail */
+    .thumbSwiper {
+        height: 90px;
+    }
+
+    .thumb-img {
+        width: 100%;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+        opacity: 0.5;
+        transition: 0.3s;
+    }
+
+    .swiper-slide-thumb-active .thumb-img {
+        opacity: 1;
+        border: 2px solid #ff6f91;
+    }
 
 </style>
 
@@ -47,22 +84,35 @@
 
         <!-- TRÁI -->
         <div class="col-md-6">
-            <img src="@(Model.Images?.FirstOrDefault() ?? "/uploads/no-image.png")"
-                 class="img-fluid mb-3" />
 
-            @if (Model.Images?.Count > 1)
-            {
-                <div class="d-flex gap-2">
+            <!-- SLIDER ẢNH LỚN -->
+            <div class="swiper mainSwiper">
+                <div class="swiper-wrapper">
                     @foreach (var img in Model.Images)
                     {
-                        <img src="@img" style="width:80px;cursor:pointer">
+                        <div class="swiper-slide">
+                            <img src="@img" class="img-fluid main-img" />
+                        </div>
                     }
                 </div>
-            }
 
-            <div class="mt-4">
-                @Html.Raw(Model.Contents)
+                <!-- MŨI TÊN -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
+
+            <!-- THUMBNAIL -->
+            <div class="swiper thumbSwiper mt-3">
+                <div class="swiper-wrapper">
+                    @foreach (var img in Model.Images)
+                    {
+                        <div class="swiper-slide">
+                            <img src="@img" class="thumb-img" />
+                        </div>
+                    }
+                </div>
+            </div>
+
         </div>
 
         <!-- PHẢI -->
@@ -141,6 +191,9 @@
     </div>
 </div>
 
+@{
+    var customerId = Context.Session.GetInt32("CUSTOMER_ID");
+}
 
 <h4 class="mt-4 p-4">Đánh giá sản phẩm</h4>
 
@@ -183,53 +236,86 @@ else
 
 @if (TempData["ReviewError"] != null)
 {
-    <div class="alert alert-danger">
+    <div class="alert alert-danger mx-4">
         @TempData["ReviewError"]
     </div>
 }
 
 @if (TempData["ReviewSuccess"] != null)
 {
-    <div class="alert alert-success">
+    <div class="alert alert-success mx-4">
         @TempData["ReviewSuccess"]
     </div>
 }
-<form asp-controller="Review" asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
 
-    <input type="hidden" name="Productid" value="@Model.Id" />
+@if (customerId != null)
+{
+    <!-- ✅ ĐÃ ĐĂNG NHẬP -->
+    <form asp-controller="Review" asp-action="Create" method="post" class="p-4">
+        @Html.AntiForgeryToken()
 
-    <div class="mb-2 p-4">
-        <label>Họ tên</label>
-        <input name="Fullname" class="form-control" required />
+        <input type="hidden" name="Productid" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label class="fw-bold">Đánh giá sao</label>
+            <select name="Rating" class="form-select w-25" required>
+                <option value="">-- Chọn --</option>
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★☆</option>
+                <option value="3">★★★☆☆</option>
+                <option value="2">★★☆☆☆</option>
+                <option value="1">★☆☆☆☆</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="fw-bold">Nội dung đánh giá</label>
+            <textarea name="Content"
+                  class="form-control"
+                  rows="3"
+                  placeholder="Chia sẻ cảm nhận của bạn về sản phẩm..."
+                  required></textarea>
+        </div>
+
+        <button class="btn btn-success">
+            Gửi đánh giá
+        </button>
+    </form>
+}
+else
+{
+    <!-- ❌ CHƯA ĐĂNG NHẬP -->
+    <div class="alert alert-warning mx-4">
+        🔒 Bạn cần
+        <a asp-controller="Account" asp-action="Login" class="fw-bold text-decoration-none">
+            đăng nhập
+        </a>
+        để gửi đánh giá sản phẩm.
     </div>
+}
 
-    <div class="mb-2 p-4">
-        <label>Email</label>
-        <input name="Email" type="email" class="form-control" required />
-    </div>
 
-    <div class="mb-2 p-4">
-        <label>Đánh giá</label>
-        <select name="Rating" class="form-select" required>
-            <option value="">-- Chọn sao --</option>
-            <option value="5">★★★★★</option>
-            <option value="4">★★★★☆</option>
-            <option value="3">★★★☆☆</option>
-            <option value="2">★★☆☆☆</option>
-            <option value="1">★☆☆☆☆</option>
-        </select>
-    </div>
 
-    <div class="mb-2 p-4">
-        <label>Nội dung</label>
-        <textarea name="Content" class="form-control" rows="3" required></textarea>
-    </div>
 
-    <button class="btn btn-success mt-2">
-        Gửi đánh giá
-    </button>
-</form>
+<script>
+    const thumbSwiper = new Swiper(".thumbSwiper", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+
+    const mainSwiper = new Swiper(".mainSwiper", {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: thumbSwiper,
+        },
+    });
+</script>
 
 
 

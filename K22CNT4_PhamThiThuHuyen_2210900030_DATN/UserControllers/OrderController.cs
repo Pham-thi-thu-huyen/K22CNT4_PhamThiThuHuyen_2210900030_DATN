@@ -14,18 +14,23 @@ public class OrderController : Controller
     // ===== ĐƠN HÀNG CỦA TÔI =====
     public IActionResult MyOrders()
     {
-        var customerId = HttpContext.Session.GetString("CUSTOMER_ID");
-        if (string.IsNullOrEmpty(customerId))
+        var customerId = HttpContext.Session.GetInt32("CUSTOMER_ID");
+
+        if (customerId == null)
+        {
             return RedirectToAction("Login", "Account");
+        }
 
         var orders = _context.Orders
-            .Include(o => o.TransportMethod)
-            .Where(o => o.Customerid == long.Parse(customerId))
-            .OrderByDescending(o => o.OrdersDate)
-            .ToList();
+     .Include(o => o.TransportMethod)
+     .Where(o => o.Customerid == customerId.Value)
+     .OrderByDescending(o => o.OrdersDate) // hoặc tên field ngày của bạn
+     .ToList();
+
 
         return View(orders);
     }
+
 
     // ===== CHI TIẾT ĐƠN =====
     public IActionResult Detail(long id)

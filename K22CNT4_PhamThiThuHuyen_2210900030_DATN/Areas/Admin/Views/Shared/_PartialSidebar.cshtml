@@ -2,12 +2,20 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview">
 
-            <li class="nav-item">
+            @* <li class="nav-item">
                 <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="nav-link">
                     <i class="nav-icon fas fa-home"></i>
                     <p>Trang quản trị</p>
                 </a>
-            </li>
+            </li> *@
+            <a asp-area="Admin"
+               asp-controller="Dashboard"
+               asp-action="Index"
+               class="nav-link">
+                <i class="nav-icon fas fa-chart-bar"></i>
+                <p>Dashboard</p>
+            </a>
+
             <li class="nav-item">
                 <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">
                     <i class="fas fa-users"></i>

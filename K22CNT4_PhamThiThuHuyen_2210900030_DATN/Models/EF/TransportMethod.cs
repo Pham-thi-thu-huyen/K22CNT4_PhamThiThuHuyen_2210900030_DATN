@@ -19,6 +19,8 @@ public partial class TransportMethod
 
     [Column("NOTES", TypeName = "ntext")]
     public string? Notes { get; set; }
+    public int? Price { get; set; }
+
 
     [Column("CREATED_DATE", TypeName = "datetime")]
     public DateTime? CreatedDate { get; set; }

@@ -1,51 +1,149 @@
 ﻿@model K22CNT4_PhamThiThuHuyen_2210900030_DATN.ViewModels.CheckoutVM
 
-<h2>Thanh toán</h2>
+<style>
+    .checkout-box {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.08);
+        padding: 18px;
+    }
 
-<form asp-action="Checkout" method="post" class="container">
+    .section-title {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
 
-    <div class="mb-3">
-        <label>Họ tên người nhận</label>
-        <input asp-for="NameReceiver" class="form-control" required />
-    </div>
+    .form-control-sm, textarea {
+        font-size: 13px;
+    }
 
-    <div class="mb-3">
-        <label>Số điện thoại</label>
-        <input asp-for="Phone" class="form-control" required />
-    </div>
+    textarea {
+        resize: none;
+    }
 
-    <div class="mb-3">
-        <label>Địa chỉ</label>
-        <input asp-for="Address" class="form-control" required />
-    </div>
+    .option-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        padding: 6px 0;
+    }
 
-    <h4 class="text-end">
-        Tổng tiền:
-        <span class="text-danger">
-            @Model.TotalMoney.ToString("N0") ₫
-        </span>
-    </h4>
+    .total-row {
+        font-size: 15px;
+        font-weight: 600;
+    }
 
-    <div class="text-end mt-4">
-        <button type="submit" class="btn btn-success px-4">
-            Đặt hàng
-        </button>
+    .total-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: #dc3545;
+    }
+</style>
+
+<h5 class="mb-3 fw-bold">🧾 Thanh toán</h5>
+
+<form asp-action="Checkout" method="post">
+    <div class="row g-3">
+
+        <!-- ===== LEFT ===== -->
+        <div class="col-md-7">
+            <div class="checkout-box">
+
+                <div class="section-title">📦 Thông tin người nhận</div>
+
+                <div class="mb-2">
+                    <input asp-for="NameReceiver"
+                           class="form-control form-control-sm"
+                           placeholder="Họ tên người nhận" />
+                </div>
+
+                <div class="mb-2">
+                    <input asp-for="Phone"
+                           class="form-control form-control-sm"
+                           placeholder="Số điện thoại" />
+                </div>
+
+                <textarea asp-for="Address"
+                          class="form-control form-control-sm"
+                          rows="2"
+                          placeholder="Địa chỉ nhận hàng"></textarea>
+
+            </div>
+        </div>
+
+        <!-- ===== RIGHT ===== -->
+        <div class="col-md-5">
+            <div class="checkout-box">
+
+                <!-- VẬN CHUYỂN -->
+                <div class="section-title">🚚 Vận chuyển</div>
+                @foreach (var item in ViewBag.TransportMethods)
+                {
+                    <label class="option-row">
+                        <div>
+                            <input type="radio"
+                                   name="TransportMethodId"
+                                   value="@item.TransportMethodid"
+                                   required />
+                            @item.Name
+                        </div>
+                        <span class="text-danger">
+                            +@item.Price.ToString("N0")đ
+                        </span>
+                    </label>
+                }
+
+                <hr class="my-2" />
+
+                <!-- THANH TOÁN -->
+                <div class="section-title">💳 Thanh toán</div>
+                @foreach (var item in ViewBag.PayMethods)
+                {
+                    <label class="option-row">
+                        <div>
+                            <input type="radio"
+                                   name="PayMethodId"
+                                   value="@item.PayMethodId"
+                                   required />
+                            @item.Name
+                        </div>
+                    </label>
+                }
+
+                <hr class="my-2" />
+
+                <!-- TỔNG -->
+                <div class="option-row total-row">
+                    <span>Tổng tiền</span>
+                    <span id="totalMoney" class="total-price">
+                        @Model.TotalMoney.ToString("N0") đ
+                    </span>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success w-100 btn-sm mt-2 fw-bold">
+                    🛒 Đặt hàng
+                </button>
+
+            </div>
+        </div>
     </div>
 </form>
-<h5 class="mt-3">Phương thức vận chuyển</h5>
 
-@foreach (var item in ViewBag.TransportMethods)
-{
-    <div class="form-check">
-        <input class="form-check-input"
-               type="radio"
-               name="TransportMethodId"
-               value="@item.TransportMethodid"
-               required />
-        <label class="form-check-label">
-            @item.Name
-            <small class="text-muted">(@item.Notes)</small>
-        </label>
-    </div>
-}
+<script>
+    const baseTotal = @Model.TotalMoney;
 
+    document.querySelectorAll('input[name="TransportMethodId"]').forEach(radio => {
+        radio.addEventListener('change', function () {
+            const row = this.closest('.option-row');
+            const ship = row.querySelector('.text-danger')
+                ? parseInt(row.querySelector('.text-danger').innerText.replace(/\D/g, ''))
+                : 0;
+
+            document.getElementById('totalMoney').innerText =
+                (baseTotal + ship).toLocaleString('vi-VN') + ' đ';
+        });
+    });
+</script>

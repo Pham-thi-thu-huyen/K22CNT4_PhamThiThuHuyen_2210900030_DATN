@@ -11,12 +11,13 @@
                 <!-- Ảnh + tên → chi tiết -->
                 <a asp-controller="Product"
                    asp-action="Detail"
-                   asp-route-id="@p.Slug"
+                   asp-route-id="@p.Id"
+                   asp-route-slug="@p.Slug"
                    class="text-decoration-none text-dark">
 
                     <img src="@(string.IsNullOrEmpty(p.Image)
-                                                      ? "/uploads/products/no-image.png"
-                                                      : p.Image)"
+                                                           ? "/uploads/products/no-image.png"
+                                                           : p.Image)"
                          class="img-fluid product-image"
                          alt="@p.Name" />
 
@@ -32,7 +33,8 @@
                 <!-- Nút chi tiết -->
                 <a asp-controller="Product"
                    asp-action="Detail"
-                   asp-route-id="@p.Slug"
+                   asp-route-id="@p.Id"
+                   asp-route-slug="@p.Slug"
                    class="btn btn-outline-success btn-detail">
                     Xem chi tiết
                 </a>
