@@ -177,16 +177,19 @@
 
             <!-- ACTION -->
             <div class="mt-4 d-flex gap-3">
-                <a href="#" id="btn-add-to-cart"
-                   class="btn btn-outline-danger btn-disabled">
+                <button type="button"
+                        id="btn-add-to-cart"
+                        class="btn btn-outline-danger">
                     Thêm vào giỏ
-                </a>
+                </button>
 
-                <a href="#" id="btn-buy-now"
-                   class="btn btn-danger btn-disabled">
+                <button type="button"
+                        id="btn-buy-now"
+                        class="btn btn-danger">
                     Mua ngay
-                </a>
+                </button>
             </div>
+
         </div>
     </div>
 </div>
@@ -412,35 +415,39 @@ else
             });
         }
 
-        // ===== ADD TO CART (AJAX) =====
-        btnAdd.onclick = e => {
-            e.preventDefault();
-            if (!currentVariantId) {
-                alert('Vui lòng chọn Size, Màu sắc và Chất liệu');
+            // ===== ADD TO CART (AJAX) =====
+    btnAdd.onclick = e => {
+        e.preventDefault();
+
+        if (!currentVariantId) {
+            alert('Vui lòng chọn Size, Màu sắc và Chất liệu');
+            return;
+        }
+
+        const qty = qtyInput.value;
+
+        fetch('/Cart/AddAjax', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `id=${currentVariantId}&quantity=${qty}`
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) {
+                alert(data.message);
                 return;
             }
 
-            const qty = qtyInput.value;
-
-            fetch('/Cart/AddAjax', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `id=${currentVariantId}&quantity=${qty}`
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (!data.success) {
-                    alert(data.message);
-                    return;
-                }
-
-                const badge = document.getElementById('cart-count');
+            // ✅ CHỈ THÊM CHECK NULL – KHÔNG ĐỤNG LOGIC KHÁC
+            const badge = document.getElementById('cart-count');
+            if (badge) {
                 badge.innerText = data.cartCount;
                 badge.classList.remove('d-none');
+            }
 
-                alert('🛒 Đã thêm vào giỏ');
-            });
-        };
+            alert('🛒 Đã thêm vào giỏ');
+        });
+    };
 
         // ===== BUY NOW =====
         btnBuy.onclick = e => {

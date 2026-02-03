@@ -33,6 +33,8 @@ public partial class Order
     [Column("PHONE")]
     [StringLength(50)]
     public string? Phone { get; set; }
+    public int Status { get; set; }
+
 
     [Column("ISDELETE")]
     public byte? Isdelete { get; set; }

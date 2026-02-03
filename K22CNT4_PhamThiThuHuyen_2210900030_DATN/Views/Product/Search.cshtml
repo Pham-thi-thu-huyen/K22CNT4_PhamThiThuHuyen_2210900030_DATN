@@ -24,12 +24,12 @@ else
                         <h6 class="card-title">@item.Name</h6>
 
                         <p class="text-danger fw-bold">
-                            @(item.Price ?? 0).ToString("N0") ₫
+                            @($"{item.Price:N0} đ")
                         </p>
 
                         <a asp-controller="Product"
                            asp-action="Detail"
-                           asp-route-id="@item.Id"
+                           asp-route-id="@item.Slug"
                            class="btn btn-sm btn-outline-primary mt-auto">
                             Xem chi tiết
                         </a>

@@ -106,11 +106,20 @@
                             <input type="radio"
                                    name="PayMethodId"
                                    value="@item.PayMethodId"
+                                   data-bank="@(item.Name.Contains("ngân hàng") ? "1" : "0")"
                                    required />
                             @item.Name
                         </div>
                     </label>
                 }
+                <div id="bankInfo" class="alert alert-info mt-2" style="display:none; font-size:13px;">
+                    <strong>🏦 Thông tin chuyển khoản</strong><br />
+                    Ngân hàng: <b>Vietcombank</b><br />
+                    Số tài khoản: <b>0123456789</b><br />
+                    Chủ tài khoản: <b>PHẠM THỊ THU HUYỀN</b><br />
+                    Nội dung chuyển khoản: <b>Họ tên + SĐT</b>
+                </div>
+
 
                 <hr class="my-2" />
 
@@ -131,10 +140,10 @@
         </div>
     </div>
 </form>
-
 <script>
     const baseTotal = @Model.TotalMoney;
 
+    // Tính tiền ship (giữ nguyên của bạn)
     document.querySelectorAll('input[name="TransportMethodId"]').forEach(radio => {
         radio.addEventListener('change', function () {
             const row = this.closest('.option-row');
@@ -146,4 +155,13 @@
                 (baseTotal + ship).toLocaleString('vi-VN') + ' đ';
         });
     });
+
+    // HIỆN / ẨN thông tin ngân hàng
+    document.querySelectorAll('input[name="PayMethodId"]').forEach(radio => {
+        radio.addEventListener('change', function () {
+            const isBank = this.dataset.bank === "1";
+            document.getElementById('bankInfo').style.display = isBank ? 'block' : 'none';
+        });
+    });
 </script>
+

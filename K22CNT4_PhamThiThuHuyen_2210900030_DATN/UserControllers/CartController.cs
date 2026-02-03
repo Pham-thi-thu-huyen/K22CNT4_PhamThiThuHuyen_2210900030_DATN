@@ -101,12 +101,11 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
             return RedirectToAction("Index");
 
         }
-
-        // ================ THÊM VÀO GIỎ HÀNG ===========
         [HttpPost]
         public IActionResult AddAjax(long id, int quantity = 1)
         {
             var cart = GetCart();
+
             var item = cart.FirstOrDefault(x => x.ProductVariantId == id);
 
             var productVariant = _context.ProductVariants
@@ -118,9 +117,7 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
                 .FirstOrDefault(pv => pv.ProductVariantid == id);
 
             if (productVariant == null)
-            {
                 return Json(new { success = false, message = "Không tìm thấy sản phẩm" });
-            }
 
             if (item == null)
             {
@@ -137,19 +134,18 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
             }
             else
             {
-                // 👉 TRÙNG SẢN PHẨM → CHỈ TĂNG QUANTITY
                 item.Quantity += quantity;
             }
 
             SaveCart(cart);
 
+            // 🔥 QUAN TRỌNG: TRẢ cartCount
             return Json(new
             {
                 success = true,
-                cartCount = cart.Count // 🔥 CHỈ ĐẾM SẢN PHẨM KHÁC NHAU
+                cartCount = cart.Count
             });
         }
-
 
 
         //================== XÓA 1 SẢN PHẨM ==================
@@ -214,7 +210,6 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
             return View(model);
         }
 
-        // ================== POST: CHECKOUT ==================
         [HttpPost]
         public IActionResult Checkout(CheckoutVM model)
         {
@@ -222,40 +217,45 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
             if (!cart.Any())
                 return RedirectToAction("Index");
 
-            // Validate chọn phương thức
-            if (model.TransportMethodId == 0 || model.PayMethodId == 0)
+            // ================== CHECK LOGIN ==================
+            var customerId = HttpContext.Session.GetInt32("CUSTOMER_ID");
+            if (customerId == null)
             {
-                ViewBag.TransportMethods = _context.TransportMethods
-                    .Where(x => x.Isactive == 1 && (x.Isdelete == 0 || x.Isdelete == null))
-                    .ToList();
+                return RedirectToAction("Login", "Account");
+            }
 
-                ViewBag.PayMethods = _context.PayMethods
-                    .Where(x => x.Isactive == 1 && (x.Isdelete == 0 || x.Isdelete == null))
-                    .ToList();
 
-                ModelState.AddModelError("", "Vui lòng chọn vận chuyển và phương thức thanh toán");
+            // ================== LOAD VIEWBAG LẠI ==================
+            ViewBag.TransportMethods = _context.TransportMethods
+                .Where(x => x.Isactive == 1 && (x.Isdelete == 0 || x.Isdelete == null))
+                .ToList();
+
+            ViewBag.PayMethods = _context.PayMethods
+                .Where(x => x.Isactive == 1 && (x.Isdelete == 0 || x.Isdelete == null))
+                .ToList();
+
+            // ================== VALIDATE ==================
+            if (!ModelState.IsValid)
+            {
                 model.TotalMoney = cart.Sum(x => x.Total);
                 return View(model);
             }
 
             // ================== TÍNH TIỀN ==================
-            // Tổng tiền sản phẩm
             var productTotal = cart.Sum(x => x.Total);
 
-            // Lấy phí ship theo phương thức vận chuyển
             var transport = _context.TransportMethods
                 .FirstOrDefault(x => x.TransportMethodid == model.TransportMethodId);
 
             int shipFee = transport?.Price ?? 0;
 
-            // Tổng tiền cuối = sản phẩm + ship
-            var totalMoney = productTotal + shipFee;
+            decimal totalMoney = productTotal + shipFee;
 
             // ================== TẠO ORDER ==================
             var order = new Order
             {
                 OrdersDate = DateTime.Now,
-                Customerid = long.Parse(HttpContext.Session.GetString("CUSTOMER_ID")!),
+                Customerid = customerId,
 
                 NameReceiver = model.NameReceiver,
                 Phone = model.Phone,
@@ -264,17 +264,18 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
                 TransportMethodid = model.TransportMethodId,
                 PayMethodId = model.PayMethodId,
 
-                // 🔥 TỔNG TIỀN ĐÃ CỘNG SHIP
                 TotalMoney = totalMoney,
 
+                Status = 0, // 🔥 CHỜ THANH TOÁN
                 Isdelete = 0,
-                Isactive = 0 // 0 = chờ xử lý
+                Isactive = 1
             };
+
 
             _context.Orders.Add(order);
             _context.SaveChanges();
 
-            // ================== LƯU ORDER DETAILS ==================
+            // ================== ORDER DETAILS ==================
             foreach (var item in cart)
             {
                 _context.OrdersDetails.Add(new OrdersDetail
@@ -289,18 +290,18 @@ namespace K22CNT4_PhamThiThuHuyen_2210900030_DATN.Controllers
 
             _context.SaveChanges();
 
-            // ================== RESET GIỎ ==================
+            // ================== RESET CART ==================
             HttpContext.Session.Remove(CART_KEY);
             HttpContext.Session.SetInt32("CART_COUNT", 0);
 
             return RedirectToAction("Success");
         }
-
-
         // ================== SUCCESS ==================
         public IActionResult Success()
-        {
-            return View();
+        { 
+            return View(); 
         }
     }
+
 }
+

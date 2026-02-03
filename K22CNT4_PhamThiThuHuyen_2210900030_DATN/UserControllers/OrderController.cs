@@ -14,42 +14,50 @@ public class OrderController : Controller
     // ===== ĐƠN HÀNG CỦA TÔI =====
     public IActionResult MyOrders()
     {
+        // 1️⃣ Lấy CUSTOMER_ID từ Session
         var customerId = HttpContext.Session.GetInt32("CUSTOMER_ID");
 
-        if (customerId == null)
+        if (!customerId.HasValue)
         {
             return RedirectToAction("Login", "Account");
         }
 
+        // 2️⃣ Lấy ĐƠN HÀNG TRỰC TIẾP từ bảng Orders
         var orders = _context.Orders
-     .Include(o => o.TransportMethod)
-     .Where(o => o.Customerid == customerId.Value)
-     .OrderByDescending(o => o.OrdersDate) // hoặc tên field ngày của bạn
-     .ToList();
-
+            .AsNoTracking() // ✅ tránh cache, đảm bảo trạng thái luôn mới
+            .Include(o => o.TransportMethod)
+            .Where(o => o.Customerid == customerId.Value)
+            .OrderByDescending(o => o.OrdersDate)
+            .ToList();
 
         return View(orders);
     }
 
 
+
     // ===== CHI TIẾT ĐƠN =====
     public IActionResult Detail(long id)
     {
-        var customerId = HttpContext.Session.GetString("CUSTOMER_ID");
-        if (string.IsNullOrEmpty(customerId))
+        // 1️⃣ LẤY CUSTOMER_ID ĐÚNG KIỂU (GIỐNG MyOrders)
+        var customerId = HttpContext.Session.GetInt32("CUSTOMER_ID");
+        if (!customerId.HasValue)
             return RedirectToAction("Login", "Account");
 
+        // 2️⃣ QUERY AN TOÀN – KHÔNG PARSE STRING
         var order = _context.Orders
+            .AsNoTracking() // ✅ tránh cache
             .Include(o => o.TransportMethod)
             .Include(o => o.OrdersDetails)
                 .ThenInclude(d => d.Productvariant)
                     .ThenInclude(pv => pv.Product)
             .FirstOrDefault(o =>
                 o.Ordersid == id &&
-                o.Customerid == long.Parse(customerId));
+                o.Customerid == customerId.Value);
 
-        if (order == null) return NotFound();
+        if (order == null)
+            return NotFound();
 
         return View(order);
     }
+
 }

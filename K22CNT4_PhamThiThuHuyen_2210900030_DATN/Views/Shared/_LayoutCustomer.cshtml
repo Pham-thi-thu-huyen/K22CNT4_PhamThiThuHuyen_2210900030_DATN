@@ -169,17 +169,21 @@
                                 </button>
                             </form>
 
-                            <!-- CART -->
-                            @{
-                                var cartCount = Context.Session.GetInt32("CART_COUNT") ?? 0;
-                            }
+                                <!-- CART -->
+                                @{
+                                    var cartCount = Context.Session.GetInt32("CART_COUNT") ?? 0;
+                                }
 
-                            <a href="/Cart" class="cart-icon position-relative">
-                                <i class="fas fa-shopping-cart"></i>
-                                <span class="cart-badge @(cartCount == 0 ? "d-none" : "")">
-                                    @cartCount
-                                </span>
-                            </a>
+                                <a href="/Cart/Index" class="cart-icon position-relative">
+                                    <i class="fas fa-shopping-cart"></i>
+
+                                    <!-- 🔥 THÊM id="cart-count" -->
+                                    <span id="cart-count"
+                                          class="cart-badge @(cartCount == 0 ? "d-none" : "")">
+                                        @cartCount
+                                    </span>
+                                </a>
+
                         </div>
 
                     </div>
